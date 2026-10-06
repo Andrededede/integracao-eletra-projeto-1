@@ -3,7 +3,6 @@
 #include <string>
 #include <vector>
 
-
 class Maker {
 private:
   std::string brandName{};

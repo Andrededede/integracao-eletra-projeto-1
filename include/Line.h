@@ -3,7 +3,6 @@
 #include <string>
 #include <vector>
 
-
 class Line {
 private:
   std::string lineName{};
