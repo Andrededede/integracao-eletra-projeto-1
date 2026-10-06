@@ -2,12 +2,12 @@
 
 #include <string>
 
-class Meter
-{
+class Meter {
 private:
-    std::string meterName{};
+  std::string meterName{};
+
 public:
-    Meter(std::string meterName);
-    auto printName() -> void;
-    auto getMeterName() -> std::string { return meterName; }
+  Meter(std::string meterName);
+  auto printName() -> void;
+  auto getMeterName() -> std::string { return meterName; }
 };
