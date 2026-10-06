@@ -12,5 +12,6 @@ public:
     Maker(std::string brandName);
     auto addLine(Line line) -> void;
     auto printLines() -> void;
+    auto printAllMeters() -> void;
     auto getMakerName() -> std::string { return brandName; }
 };

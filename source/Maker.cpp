@@ -12,3 +12,9 @@ auto Maker::printLines() -> void {
         std::cout << line.getLineName() << std::endl;
     }
 }
+
+auto Maker::printAllMeters() -> void {
+    for (Line line : lines) {
+        line.printLineMeters();
+    }
+}

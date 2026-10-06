@@ -8,7 +8,7 @@ auto Line::addMeter(Meter meter) -> void {
     meters.push_back(meter);
 }
 
-auto Line::printLine() -> void {
+auto Line::printLineMeters() -> void {
     for (Meter meter : meters) {
         std::cout << lineName << " " << meter.getMeterName() << std::endl;
     }

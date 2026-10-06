@@ -11,6 +11,6 @@ private:
 public:
     Line(std::string lineName);
     auto addMeter(Meter meter) -> void;
-    auto printLine() -> void;
+    auto printLineMeters() -> void;
     auto getLineName() -> std::string { return lineName; }
 };

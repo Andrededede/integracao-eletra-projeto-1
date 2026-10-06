@@ -16,11 +16,6 @@ int main()
     Line Ares("Ares");
     Line Zeus("Zeus");
 
-    Eletra.addLine(Apolo);
-    Eletra.addLine(Cronos);
-    Eletra.addLine(Ares);
-    Eletra.addLine(Zeus);
-
     Apolo.addMeter(Meter("6031"));
 
     Cronos.addMeter(Meter("6001 A"));
@@ -42,6 +37,11 @@ int main()
     Zeus.addMeter(Meter("8023"));
     Zeus.addMeter(Meter("8031"));
 
+    Eletra.addLine(Apolo);
+    Eletra.addLine(Cronos);
+    Eletra.addLine(Ares);
+    Eletra.addLine(Zeus);
+
     
     do {
         std::cout << "\nEscolha uma opção:" << std::endl <<
@@ -59,19 +59,19 @@ int main()
                 Eletra.printLines();
                 break;
             case 2:
-                std::cout << "2" << std::endl;
+                Eletra.printAllMeters();
                 break; 
             case 3:
-                Ares.printLine();
+                Ares.printLineMeters();
                 break;
             case 4:
-                Apolo.printLine();
+                Apolo.printLineMeters();
                 break;
             case 5:
-                Cronos.printLine();
+                Cronos.printLineMeters();
                 break; 
             case 6:
-                Zeus.printLine();
+                Zeus.printLineMeters();
                 break;
             case 7:
                 break;
