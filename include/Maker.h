@@ -3,14 +3,14 @@
 #include <vector>
 #include "Line.h"
 
-class Brand
+class Maker
 {
 private:
     std::string brandName{};
     std::vector<Line> lines{};
 public:
-    Brand(std::string brandName);
+    Maker(std::string brandName);
     auto addLine(Line line) -> void;
     auto printLines() -> void;
-    auto getBrandName() -> std::string { return brandName; }
+    auto getMakerName() -> std::string { return brandName; }
 };

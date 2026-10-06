@@ -2,14 +2,14 @@
 #include <locale>
 #include "../include/Meter.h"
 #include "../include/Line.h"
-#include "../include/Brand.h"
+#include "../include/Maker.h"
 
 int main()
 {
     setlocale(LC_ALL, "pt_BR.UTF-8");
     int op;
 
-    Brand Eletra("Eletra");
+    Maker Eletra("Eletra");
 
     Line Apolo("Apolo");
     Line Cronos("Cronos");
@@ -31,6 +31,17 @@ int main()
     Cronos.addMeter(Meter("7023L"));
     Cronos.addMeter(Meter("7023L 2,5"));
 
+    Ares.addMeter(Meter("7021"));
+    Ares.addMeter(Meter("7031"));
+    Ares.addMeter(Meter("7023"));
+    Ares.addMeter(Meter("8023"));
+    Ares.addMeter(Meter("8023 15"));
+    Ares.addMeter(Meter("8023 200"));
+
+    Zeus.addMeter(Meter("8021"));
+    Zeus.addMeter(Meter("8023"));
+    Zeus.addMeter(Meter("8031"));
+
     
     do {
         std::cout << "\nEscolha uma opção:" << std::endl <<
@@ -42,6 +53,7 @@ int main()
             "6. Exibir todos os modelos da Linha Zeus" << std::endl <<
             "7. Sair da Aplicação" << std::endl;
         std::cin >> op;
+        std::cout << std::endl;
         switch(op){
             case 1:
                 Eletra.printLines();
@@ -53,16 +65,15 @@ int main()
                 Ares.printLine();
                 break;
             case 4:
-                Cronos.printLine();
+                Apolo.printLine();
                 break;
             case 5:
-                std::cout << "5" << std::endl;
+                Cronos.printLine();
                 break; 
             case 6:
-                std::cout << "6" << std::endl;
+                Zeus.printLine();
                 break;
             case 7:
-                std::cout << "7" << std::endl;
                 break;
             default:
                 std::cout << "Opção inválida" << std::endl;
