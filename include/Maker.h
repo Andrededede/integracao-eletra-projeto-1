@@ -6,16 +6,16 @@
 class Maker
 {
 private:
-    std::string brandName{};
+    std::string brand_name{};
     std::vector<Line> lines{};
 
 public:
-    Maker(std::string brandName);
-    auto addLine(Line line) -> int;
-    auto printLines() -> void;
-    auto printAllMeters() -> void;
-    auto getMakerName() -> std::string
+    Maker(std::string brand_name);
+    auto add_line(Line line) -> int;
+    auto print_lines() -> void;
+    auto print_all_meters() -> void;
+    auto get_maker_name() -> std::string
     {
-        return brandName;
+        return brand_name;
     }
 };

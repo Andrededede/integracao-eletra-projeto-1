@@ -7,7 +7,7 @@
 int main()
 {
     setlocale(LC_ALL, "pt_BR.UTF-8");
-    int op;
+    int op{};
 
     Maker Eletra("Eletra");
 
@@ -16,31 +16,31 @@ int main()
     Line Ares("Ares");
     Line Zeus("Zeus");
 
-    Apolo.addMeter(Meter("6031"));
+    Apolo.add_meter(Meter("6031"));
 
-    Cronos.addMeter(Meter("6001 A"));
-    Cronos.addMeter(Meter("6021 A"));
-    Cronos.addMeter(Meter("6021L"));
-    Cronos.addMeter(Meter("6003"));
-    Cronos.addMeter(Meter("7023"));
-    Cronos.addMeter(Meter("7023L"));
-    Cronos.addMeter(Meter("7023L 2,5"));
+    Cronos.add_meter(Meter("6001 A"));
+    Cronos.add_meter(Meter("6021 A"));
+    Cronos.add_meter(Meter("6021L"));
+    Cronos.add_meter(Meter("6003"));
+    Cronos.add_meter(Meter("7023"));
+    Cronos.add_meter(Meter("7023L"));
+    Cronos.add_meter(Meter("7023L 2,5"));
 
-    Ares.addMeter(Meter("7021"));
-    Ares.addMeter(Meter("7031"));
-    Ares.addMeter(Meter("7023"));
-    Ares.addMeter(Meter("8023"));
-    Ares.addMeter(Meter("8023 15"));
-    Ares.addMeter(Meter("8023 200"));
+    Ares.add_meter(Meter("7021"));
+    Ares.add_meter(Meter("7031"));
+    Ares.add_meter(Meter("7023"));
+    Ares.add_meter(Meter("8023"));
+    Ares.add_meter(Meter("8023 15"));
+    Ares.add_meter(Meter("8023 200"));
 
-    Zeus.addMeter(Meter("8021"));
-    Zeus.addMeter(Meter("8023"));
-    Zeus.addMeter(Meter("8031"));
+    Zeus.add_meter(Meter("8021"));
+    Zeus.add_meter(Meter("8023"));
+    Zeus.add_meter(Meter("8031"));
 
-    Eletra.addLine(Apolo);
-    Eletra.addLine(Cronos);
-    Eletra.addLine(Ares);
-    Eletra.addLine(Zeus);
+    Eletra.add_line(Apolo);
+    Eletra.add_line(Cronos);
+    Eletra.add_line(Ares);
+    Eletra.add_line(Zeus);
 
     do
     {
@@ -57,22 +57,22 @@ int main()
         switch (op)
         {
         case 1:
-            Eletra.printLines();
+            Eletra.print_lines();
             break;
         case 2:
-            Eletra.printAllMeters();
+            Eletra.print_all_meters();
             break;
         case 3:
-            Ares.printLineMeters();
+            Ares.print_line_meters();
             break;
         case 4:
-            Apolo.printLineMeters();
+            Apolo.print_line_meters();
             break;
         case 5:
-            Cronos.printLineMeters();
+            Cronos.print_line_meters();
             break;
         case 6:
-            Zeus.printLineMeters();
+            Zeus.print_line_meters();
             break;
         case 7:
             break;

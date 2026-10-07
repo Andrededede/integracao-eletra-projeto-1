@@ -6,15 +6,15 @@
 class Line
 {
 private:
-    std::string lineName{};
+    std::string line_name{};
     std::vector<Meter> meters{};
 
 public:
-    Line(std::string lineName);
-    auto addMeter(Meter meter) -> int;
-    auto printLineMeters() -> void;
-    auto getLineName() -> std::string
+    Line(std::string line_name);
+    auto add_meter(Meter meter) -> int;
+    auto print_line_meters() -> void;
+    auto get_line_name() -> std::string
     {
-        return lineName;
+        return line_name;
     }
 };

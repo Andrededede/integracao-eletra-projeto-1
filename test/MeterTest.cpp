@@ -4,5 +4,5 @@
 TEST_CASE("Meter names are returned correctly", "[meter]")
 {
     Meter meter("Test Meter");
-    REQUIRE(meter.getMeterName() == "Test Meter");
+    REQUIRE(meter.get_meter_name() == "Test Meter");
 }

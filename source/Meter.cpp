@@ -2,12 +2,12 @@
 #include <iostream>
 #include <string>
 
-Meter::Meter(std::string meterName)
-    : meterName(meterName)
+Meter::Meter(std::string meter_name)
+    : meter_name(meter_name)
 {
 }
 
-auto Meter::printName() -> void
+auto Meter::print_name() -> void
 {
-    std::cout << meterName << " ";
+    std::cout << meter_name << " ";
 }

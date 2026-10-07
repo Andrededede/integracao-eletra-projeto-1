@@ -3,14 +3,14 @@
 #include <algorithm>
 #include <iostream>
 
-Line::Line(std::string lineName)
-    : lineName(lineName)
+Line::Line(std::string line_name)
+    : line_name(line_name)
 {
 }
 
-auto Line::addMeter(Meter meter) -> int
+auto Line::add_meter(Meter meter) -> int
 {
-    auto it = std::find_if(meters.begin(), meters.end(), [&meter](Meter &m) { return m.getMeterName() == meter.getMeterName(); });
+    auto it = std::find_if(meters.begin(), meters.end(), [&meter](Meter &m) { return m.get_meter_name() == meter.get_meter_name(); });
 
     if (it == meters.end())
     {
@@ -23,10 +23,10 @@ auto Line::addMeter(Meter meter) -> int
     }
 }
 
-auto Line::printLineMeters() -> void
+auto Line::print_line_meters() -> void
 {
     for (Meter meter : meters)
     {
-        std::cout << lineName << " " << meter.getMeterName() << std::endl;
+        std::cout << line_name << " " << meter.get_meter_name() << std::endl;
     }
 }
