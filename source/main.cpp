@@ -53,6 +53,8 @@ int main()
                   << "6. Exibir todos os modelos da Linha Zeus" << std::endl
                   << "7. Sair da Aplicação" << std::endl;
         std::cin >> op;
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::cout << std::endl;
         switch (op)
         {
