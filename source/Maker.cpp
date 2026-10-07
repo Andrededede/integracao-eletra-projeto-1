@@ -6,9 +6,19 @@ Maker::Maker(std::string brandName)
 {
 }
 
-auto Maker::addLine(Line line) -> void
+auto Maker::addLine(Line line) -> int
 {
-    lines.push_back(line);
+    auto it = std::find_if(lines.begin(), lines.end(), [&line](Line &l) { return l.getLineName() == line.getLineName(); });
+
+    if (it == lines.end())
+    {
+        lines.push_back(line);
+        return 0;
+    }
+    else
+    {
+        return 1;
+    }
 }
 
 auto Maker::printLines() -> void

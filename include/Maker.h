@@ -11,7 +11,7 @@ private:
 
 public:
     Maker(std::string brandName);
-    auto addLine(Line line) -> void;
+    auto addLine(Line line) -> int;
     auto printLines() -> void;
     auto printAllMeters() -> void;
     auto getMakerName() -> std::string

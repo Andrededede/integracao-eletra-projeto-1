@@ -7,7 +7,7 @@ Meter::Meter(std::string meterName)
 {
 }
 
-void Meter::printName()
+auto Meter::printName() -> void
 {
     std::cout << meterName << " ";
 }
