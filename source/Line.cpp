@@ -10,7 +10,8 @@ Line::Line(std::string line_name)
 
 auto Line::add_meter(Meter meter) -> int
 {
-    auto it = std::find_if(meters.begin(), meters.end(), [&meter](Meter &m) { return m.get_meter_name() == meter.get_meter_name(); });
+    auto it = std::find_if(meters.begin(), meters.end(),
+                           [&meter](Meter &m) { return (m.get_meter_name() == meter.get_meter_name()) && (m.get_id() == meter.get_id()); });
 
     if (it == meters.end())
     {
@@ -27,6 +28,9 @@ auto Line::print_line_meters() -> void
 {
     for (Meter meter : meters)
     {
-        std::cout << line_name << " " << meter.get_meter_name() << std::endl;
+        std::cout << line_name << " " << meter.get_meter_name() << std::endl
+                  << "  ID: " << meter.get_id() << std::endl
+                  << "  Tipo: " << int(meter.get_meter_type()) << std::endl
+                  << "  Cliente: " << int(meter.get_client()) << std::endl;
     }
 }

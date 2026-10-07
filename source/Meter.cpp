@@ -2,8 +2,11 @@
 #include <iostream>
 #include <string>
 
-Meter::Meter(std::string meter_name)
-    : meter_name(meter_name)
+Meter::Meter(int id, std::string meter_name, MeterType meter_type, Client client)
+    : id(id)
+    , meter_name(meter_name)
+    , meter_type(MeterType::SINGLE_PHASE)
+    , client(Client::EDP)
 {
 }
 
