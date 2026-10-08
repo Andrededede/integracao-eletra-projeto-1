@@ -23,7 +23,7 @@ auto Maker::add_meter(Meter meter) -> int
     }
 }
 
-auto Maker::print_lines() -> void
+auto Maker::print_lines() -> int
 {
     std::map<Line, std::string> line_names;
 
@@ -32,10 +32,16 @@ auto Maker::print_lines() -> void
         line_names[meter.get_line()] = line_enum_to_string(meter.get_line());
     }
 
+    if (line_names.empty())
+    {
+        std::cout << "Nenhuma linha disponível." << std::endl;
+        return 1;
+    }
     for (auto line_pair : line_names)
     {
         std::cout << line_pair.second << std::endl;
     }
+    return 0;
 }
 
 auto Maker::print_line_meters(Line line) -> void

@@ -25,3 +25,20 @@ TEST_CASE("Meters can be added to a Maker correctly", "[maker]")
         REQUIRE(maker.add_meter(meter1) == 1);
     }
 }
+
+TEST_CASE("Maker can print lines correctly", "[maker]")
+{
+    Maker maker("Test Maker");
+
+    SECTION("Printing lines with no meters returns 1")
+    {
+        REQUIRE(maker.print_lines() == 1);
+    }
+
+    SECTION("Printing lines with meters returns 0")
+    {
+        maker.add_meter(Meter("Meter 1", MeterType::SINGLE_PHASE, Client::EDP, Line::APOLO));
+        maker.add_meter(Meter("Meter 2", MeterType::THREE_PHASE, Client::CEMIG, Line::CRONOS));
+        REQUIRE(maker.print_lines() == 0);
+    }
+}
