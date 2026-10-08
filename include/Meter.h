@@ -6,8 +6,6 @@ enum class MeterType
 {
     SINGLE_PHASE,
     THREE_PHASE,
-    SINGLE_PHASE_PREPAID,
-    THREE_PHASE_PREPAID
 };
 
 enum class Client
@@ -18,8 +16,17 @@ enum class Client
     COPEL,
 };
 
+enum class Line
+{
+    APOLO,
+    CRONOS,
+    ARES,
+    ZEUS,
+};
+
 auto meter_type_enum_to_string(MeterType type) -> std::string;
 auto client_enum_to_string(Client client) -> std::string;
+auto line_enum_to_string(Line line) -> std::string;
 
 class Meter
 {
@@ -29,10 +36,11 @@ private:
     std::string meter_name{};
     MeterType meter_type{};
     Client client{};
+    Line line{};
 
 public:
-    Meter(std::string meter_name, MeterType meter_type, Client client);
-    auto print_name() -> void;
+    Meter(std::string meter_name, MeterType meter_type, Client client, Line line);
+    auto print_meter() -> void;
     auto get_id() -> int
     {
         return id;
@@ -48,5 +56,9 @@ public:
     auto get_client() -> Client
     {
         return client;
+    }
+    auto get_line() -> Line
+    {
+        return line;
     }
 };

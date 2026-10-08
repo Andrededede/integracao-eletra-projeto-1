@@ -1,18 +1,20 @@
 #include "../include/Maker.h"
 #include <iostream>
+#include <map>
 
 Maker::Maker(std::string brand_name)
     : brand_name(brand_name)
 {
 }
 
-auto Maker::add_line(Line line) -> int
+auto Maker::add_meter(Meter meter) -> int
 {
-    auto it = std::find_if(lines.begin(), lines.end(), [&line](Line &l) { return l.get_line_name() == line.get_line_name(); });
+    auto it = std::find_if(meters.begin(), meters.end(),
+                           [&meter](Meter &m) { return (m.get_meter_name() == meter.get_meter_name()) && (m.get_id() == meter.get_id()); });
 
-    if (it == lines.end())
+    if (it == meters.end())
     {
-        lines.push_back(line);
+        meters.push_back(meter);
         return 0;
     }
     else
@@ -23,16 +25,34 @@ auto Maker::add_line(Line line) -> int
 
 auto Maker::print_lines() -> void
 {
-    for (Line line : lines)
+    std::map<Line, std::string> line_names;
+
+    for (auto meter : meters)
     {
-        std::cout << line.get_line_name() << std::endl;
+        line_names[meter.get_line()] = line_enum_to_string(meter.get_line());
+    }
+
+    for (auto line_pair : line_names)
+    {
+        std::cout << line_pair.second << std::endl;
+    }
+}
+
+auto Maker::print_line_meters(Line line) -> void
+{
+    for (auto meter : meters)
+    {
+        if (meter.get_line() == line)
+        {
+            meter.print_meter();
+        }
     }
 }
 
 auto Maker::print_all_meters() -> void
 {
-    for (Line line : lines)
+    for (auto meter : meters)
     {
-        line.print_line_meters();
+        meter.print_meter();
     }
 }

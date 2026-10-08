@@ -1,5 +1,5 @@
 #pragma once
-#include "Line.h"
+#include "Meter.h"
 #include <string>
 #include <vector>
 
@@ -7,12 +7,13 @@ class Maker
 {
 private:
     std::string brand_name{};
-    std::vector<Line> lines{};
+    std::vector<Meter> meters{};
 
 public:
     Maker(std::string brand_name);
-    auto add_line(Line line) -> int;
+    auto add_meter(Meter meter) -> int;
     auto print_lines() -> void;
+    auto print_line_meters(Line line) -> void;
     auto print_all_meters() -> void;
     auto get_maker_name() -> std::string
     {

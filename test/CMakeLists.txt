@@ -4,7 +4,6 @@ add_executable(
     ${PROJECT_NAME}_test
 
     CatchMain.cpp
-    LineTest.cpp
     MakerTest.cpp
     MeterTest.cpp
 )

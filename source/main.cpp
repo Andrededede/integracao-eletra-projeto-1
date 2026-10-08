@@ -1,4 +1,3 @@
-#include "../include/Line.h"
 #include "../include/Maker.h"
 #include "../include/Meter.h"
 #include <iostream>
@@ -11,36 +10,26 @@ int main()
 
     Maker Eletra("Eletra");
 
-    Line Apolo("Apolo");
-    Line Cronos("Cronos");
-    Line Ares("Ares");
-    Line Zeus("Zeus");
+    Eletra.add_meter(Meter("6031", MeterType::SINGLE_PHASE, Client::EDP, Line::APOLO));
 
-    Apolo.add_meter(Meter("6031", MeterType::SINGLE_PHASE, Client::EDP));
+    Eletra.add_meter(Meter("6001 A", MeterType::SINGLE_PHASE, Client::CEMIG, Line::CRONOS));
+    Eletra.add_meter(Meter("6021 A", MeterType::SINGLE_PHASE, Client::COPEL, Line::CRONOS));
+    Eletra.add_meter(Meter("6021L", MeterType::SINGLE_PHASE, Client::EDP, Line::CRONOS));
+    Eletra.add_meter(Meter("6003", MeterType::THREE_PHASE, Client::COELCE, Line::CRONOS));
+    Eletra.add_meter(Meter("7023", MeterType::THREE_PHASE, Client::CEMIG, Line::CRONOS));
+    Eletra.add_meter(Meter("7023L", MeterType::THREE_PHASE, Client::EDP, Line::CRONOS));
+    Eletra.add_meter(Meter("7023L 2,5", MeterType::THREE_PHASE, Client::COPEL, Line::CRONOS));
 
-    Cronos.add_meter(Meter("6001 A", MeterType::SINGLE_PHASE_PREPAID, Client::CEMIG));
-    Cronos.add_meter(Meter("6021 A", MeterType::THREE_PHASE, Client::COPEL));
-    Cronos.add_meter(Meter("6021L", MeterType::SINGLE_PHASE_PREPAID, Client::EDP));
-    Cronos.add_meter(Meter("6003", MeterType::THREE_PHASE_PREPAID, Client::COELCE));
-    Cronos.add_meter(Meter("7023", MeterType::THREE_PHASE, Client::CEMIG));
-    Cronos.add_meter(Meter("7023L", MeterType::SINGLE_PHASE, Client::EDP));
-    Cronos.add_meter(Meter("7023L 2,5", MeterType::SINGLE_PHASE, Client::COPEL));
+    Eletra.add_meter(Meter("7021", MeterType::SINGLE_PHASE, Client::CEMIG, Line::ARES));
+    Eletra.add_meter(Meter("7031", MeterType::SINGLE_PHASE, Client::COPEL, Line::ARES));
+    Eletra.add_meter(Meter("7023", MeterType::SINGLE_PHASE, Client::EDP, Line::ARES));
+    Eletra.add_meter(Meter("8023", MeterType::THREE_PHASE, Client::EDP, Line::ARES));
+    Eletra.add_meter(Meter("8023 15", MeterType::THREE_PHASE, Client::COPEL, Line::ARES));
+    Eletra.add_meter(Meter("8023 200", MeterType::THREE_PHASE, Client::COPEL, Line::ARES));
 
-    Ares.add_meter(Meter("7021", MeterType::SINGLE_PHASE_PREPAID, Client::CEMIG));
-    Ares.add_meter(Meter("7031", MeterType::THREE_PHASE_PREPAID, Client::COPEL));
-    Ares.add_meter(Meter("7023", MeterType::THREE_PHASE_PREPAID, Client::EDP));
-    Ares.add_meter(Meter("8023", MeterType::THREE_PHASE, Client::EDP));
-    Ares.add_meter(Meter("8023 15", MeterType::SINGLE_PHASE, Client::COPEL));
-    Ares.add_meter(Meter("8023 200", MeterType::THREE_PHASE, Client::COPEL));
-
-    Zeus.add_meter(Meter("8021", MeterType::THREE_PHASE_PREPAID, Client::CEMIG));
-    Zeus.add_meter(Meter("8031", MeterType::THREE_PHASE, Client::CEMIG));
-    Zeus.add_meter(Meter("8023", MeterType::SINGLE_PHASE_PREPAID, Client::COELCE));
-
-    Eletra.add_line(Apolo);
-    Eletra.add_line(Cronos);
-    Eletra.add_line(Ares);
-    Eletra.add_line(Zeus);
+    Eletra.add_meter(Meter("8021", MeterType::SINGLE_PHASE, Client::CEMIG, Line::ZEUS));
+    Eletra.add_meter(Meter("8031", MeterType::SINGLE_PHASE, Client::CEMIG, Line::ZEUS));
+    Eletra.add_meter(Meter("8023", MeterType::THREE_PHASE, Client::COELCE, Line::ZEUS));
 
     do
     {
@@ -65,16 +54,16 @@ int main()
             Eletra.print_all_meters();
             break;
         case 3:
-            Ares.print_line_meters();
+            Eletra.print_line_meters(Line::ARES);
             break;
         case 4:
-            Apolo.print_line_meters();
+            Eletra.print_line_meters(Line::APOLO);
             break;
         case 5:
-            Cronos.print_line_meters();
+            Eletra.print_line_meters(Line::CRONOS);
             break;
         case 6:
-            Zeus.print_line_meters();
+            Eletra.print_line_meters(Line::ZEUS);
             break;
         case 7:
             break;

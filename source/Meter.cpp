@@ -4,17 +4,21 @@
 
 int Meter::ID = 0;
 
-Meter::Meter(std::string meter_name, MeterType meter_type, Client client)
+Meter::Meter(std::string meter_name, MeterType meter_type, Client client, Line line)
     : id(++ID)
     , meter_name(meter_name)
     , meter_type(meter_type)
     , client(client)
+    , line(line)
 {
 }
 
-auto Meter::print_name() -> void
+auto Meter::print_meter() -> void
 {
-    std::cout << meter_name << " ";
+    std::cout << line_enum_to_string(line) << " " << meter_name << std::endl
+              << "  ID: " << id << std::endl
+              << "  Tipo: " << meter_type_enum_to_string(meter_type) << std::endl
+              << "  Cliente: " << client_enum_to_string(client) << std::endl;
 }
 
 auto meter_type_enum_to_string(MeterType type) -> std::string
@@ -25,10 +29,23 @@ auto meter_type_enum_to_string(MeterType type) -> std::string
         return "SINGLE_PHASE";
     case MeterType::THREE_PHASE:
         return "THREE_PHASE";
-    case MeterType::SINGLE_PHASE_PREPAID:
-        return "SINGLE_PHASE_PREPAID";
-    case MeterType::THREE_PHASE_PREPAID:
-        return "THREE_PHASE_PREPAID";
+    default:
+        return "UNKNOWN";
+    }
+}
+
+auto line_enum_to_string(Line line) -> std::string
+{
+    switch (line)
+    {
+    case Line::APOLO:
+        return "APOLO";
+    case Line::CRONOS:
+        return "CRONOS";
+    case Line::ARES:
+        return "ARES";
+    case Line::ZEUS:
+        return "ZEUS";
     default:
         return "UNKNOWN";
     }

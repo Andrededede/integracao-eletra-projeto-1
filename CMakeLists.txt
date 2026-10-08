@@ -12,7 +12,6 @@ add_library(
     ${PROJECT_NAME}_lib
 
     ${PROJECT_SOURCE_DIR}/source/Meter.cpp
-    ${PROJECT_SOURCE_DIR}/source/Line.cpp
     ${PROJECT_SOURCE_DIR}/source/Maker.cpp
 )
 
