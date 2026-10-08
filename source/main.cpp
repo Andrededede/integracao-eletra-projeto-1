@@ -16,26 +16,26 @@ int main()
     Line Ares("Ares");
     Line Zeus("Zeus");
 
-    Apolo.add_meter(Meter(1, "6031", MeterType::SINGLE_PHASE, Client::EDP));
+    Apolo.add_meter(Meter("6031", MeterType::SINGLE_PHASE, Client::EDP));
 
-    Cronos.add_meter(Meter(2, "6001 A", MeterType::SINGLE_PHASE, Client::EDP));
-    Cronos.add_meter(Meter(3, "6021 A", MeterType::SINGLE_PHASE, Client::EDP));
-    Cronos.add_meter(Meter(4, "6021L", MeterType::SINGLE_PHASE, Client::EDP));
-    Cronos.add_meter(Meter(5, "6003", MeterType::SINGLE_PHASE, Client::EDP));
-    Cronos.add_meter(Meter(6, "7023", MeterType::SINGLE_PHASE, Client::EDP));
-    Cronos.add_meter(Meter(7, "7023L", MeterType::SINGLE_PHASE, Client::EDP));
-    Cronos.add_meter(Meter(8, "7023L 2,5", MeterType::SINGLE_PHASE, Client::EDP));
+    Cronos.add_meter(Meter("6001 A", MeterType::SINGLE_PHASE_PREPAID, Client::CEMIG));
+    Cronos.add_meter(Meter("6021 A", MeterType::THREE_PHASE, Client::COPEL));
+    Cronos.add_meter(Meter("6021L", MeterType::SINGLE_PHASE_PREPAID, Client::EDP));
+    Cronos.add_meter(Meter("6003", MeterType::THREE_PHASE_PREPAID, Client::COELCE));
+    Cronos.add_meter(Meter("7023", MeterType::THREE_PHASE, Client::CEMIG));
+    Cronos.add_meter(Meter("7023L", MeterType::SINGLE_PHASE, Client::EDP));
+    Cronos.add_meter(Meter("7023L 2,5", MeterType::SINGLE_PHASE, Client::COPEL));
 
-    Ares.add_meter(Meter(9, "7021", MeterType::SINGLE_PHASE, Client::EDP));
-    Ares.add_meter(Meter(10, "7031", MeterType::SINGLE_PHASE, Client::EDP));
-    Ares.add_meter(Meter(11, "7023", MeterType::SINGLE_PHASE, Client::EDP));
-    Ares.add_meter(Meter(12, "8023", MeterType::SINGLE_PHASE, Client::EDP));
-    Ares.add_meter(Meter(13, "8023 15", MeterType::SINGLE_PHASE, Client::EDP));
-    Ares.add_meter(Meter(14, "8023 200", MeterType::SINGLE_PHASE, Client::EDP));
+    Ares.add_meter(Meter("7021", MeterType::SINGLE_PHASE_PREPAID, Client::CEMIG));
+    Ares.add_meter(Meter("7031", MeterType::THREE_PHASE_PREPAID, Client::COPEL));
+    Ares.add_meter(Meter("7023", MeterType::THREE_PHASE_PREPAID, Client::EDP));
+    Ares.add_meter(Meter("8023", MeterType::THREE_PHASE, Client::EDP));
+    Ares.add_meter(Meter("8023 15", MeterType::SINGLE_PHASE, Client::COPEL));
+    Ares.add_meter(Meter("8023 200", MeterType::THREE_PHASE, Client::COPEL));
 
-    Zeus.add_meter(Meter(15, "8021", MeterType::SINGLE_PHASE, Client::EDP));
-    Zeus.add_meter(Meter(16, "8023", MeterType::SINGLE_PHASE, Client::EDP));
-    Zeus.add_meter(Meter(17, "8031", MeterType::SINGLE_PHASE, Client::EDP));
+    Zeus.add_meter(Meter("8021", MeterType::THREE_PHASE_PREPAID, Client::CEMIG));
+    Zeus.add_meter(Meter("8031", MeterType::THREE_PHASE, Client::CEMIG));
+    Zeus.add_meter(Meter("8023", MeterType::SINGLE_PHASE_PREPAID, Client::COELCE));
 
     Eletra.add_line(Apolo);
     Eletra.add_line(Cronos);

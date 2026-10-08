@@ -30,7 +30,7 @@ auto Line::print_line_meters() -> void
     {
         std::cout << line_name << " " << meter.get_meter_name() << std::endl
                   << "  ID: " << meter.get_id() << std::endl
-                  << "  Tipo: " << int(meter.get_meter_type()) << std::endl
-                  << "  Cliente: " << int(meter.get_client()) << std::endl;
+                  << "  Tipo: " << meter_type_enum_to_string(meter.get_meter_type()) << std::endl
+                  << "  Cliente: " << client_enum_to_string(meter.get_client()) << std::endl;
     }
 }

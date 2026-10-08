@@ -18,16 +18,20 @@ enum class Client
     COPEL,
 };
 
+auto meter_type_enum_to_string(MeterType type) -> std::string;
+auto client_enum_to_string(Client client) -> std::string;
+
 class Meter
 {
 private:
-    int id{};
+    static int ID;
+    int id{0};
     std::string meter_name{};
     MeterType meter_type{};
     Client client{};
 
 public:
-    Meter(int id, std::string meter_name, MeterType meter_type, Client client);
+    Meter(std::string meter_name, MeterType meter_type, Client client);
     auto print_name() -> void;
     auto get_id() -> int
     {
