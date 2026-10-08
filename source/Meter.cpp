@@ -18,7 +18,8 @@ auto Meter::print_meter() -> void
     std::cout << line_enum_to_string(line) << " " << meter_name << std::endl
               << "  ID: " << id << std::endl
               << "  Tipo: " << meter_type_enum_to_string(meter_type) << std::endl
-              << "  Cliente: " << client_enum_to_string(client) << std::endl;
+              << "  Cliente: " << client_enum_to_string(client) << std::endl
+              << "  Linha: " << line_enum_to_string(line) << std::endl;
 }
 
 auto meter_type_enum_to_string(MeterType type) -> std::string

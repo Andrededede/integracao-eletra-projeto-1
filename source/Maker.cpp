@@ -7,7 +7,7 @@ Maker::Maker(std::string brand_name)
 {
 }
 
-auto Maker::add_meter(Meter meter) -> int
+auto Maker::add_meter(Meter meter) -> bool
 {
     auto it = std::find_if(meters.begin(), meters.end(),
                            [&meter](Meter &m) { return (m.get_meter_name() == meter.get_meter_name()) && (m.get_id() == meter.get_id()); });
@@ -15,38 +15,48 @@ auto Maker::add_meter(Meter meter) -> int
     if (it == meters.end())
     {
         meters.push_back(meter);
-        return 0;
+        return false;
     }
-    else
-    {
-        return 1;
-    }
+    return true;
 }
 
-auto Maker::print_lines() -> void
+auto Maker::print_lines() -> bool
 {
     std::map<Line, std::string> line_names;
 
     for (auto meter : meters)
     {
-        line_names[meter.get_line()] = line_enum_to_string(meter.get_line());
+        line_names.insert({meter.get_line(), line_enum_to_string(meter.get_line())});
     }
 
+    if (line_names.empty())
+    {
+        std::cout << "Nenhuma linha disponível." << std::endl;
+        return true;
+    }
     for (auto line_pair : line_names)
     {
         std::cout << line_pair.second << std::endl;
     }
+    return false;
 }
 
-auto Maker::print_line_meters(Line line) -> void
+auto Maker::print_line_meters(Line line) -> bool
 {
+    bool not_found = true;
     for (auto meter : meters)
     {
         if (meter.get_line() == line)
         {
             meter.print_meter();
+            not_found = false;
         }
     }
+    if (not_found)
+    {
+        std::cout << "Nenhum medidor encontrado para a linha " << line_enum_to_string(line) << "." << std::endl;
+    }
+    return not_found;
 }
 
 auto Maker::print_all_meters() -> void
