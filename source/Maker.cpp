@@ -2,21 +2,22 @@
 #include <iostream>
 #include <map>
 
-Maker::Maker(std::string brand_name)
-    : brand_name(brand_name)
+Maker::Maker(std::string maker_name)
+    : maker_name(maker_name)
 {
 }
 
-auto Maker::add_meter(Meter meter) -> bool
+auto Maker::add_meter(std::unique_ptr<Meter> meter) -> bool
 {
-    auto it = std::find_if(meters.begin(), meters.end(),
-                           [&meter](Meter &m) { return (m.get_meter_name() == meter.get_meter_name()) && (m.get_id() == meter.get_id()); });
-
+    auto it = std::find_if(meters.begin(), meters.end(), [&meter](const std::unique_ptr<Meter> &m) {
+        return (m->get_meter_name() == meter->get_meter_name()) && (m->get_id() == meter->get_id());
+    });
     if (it == meters.end())
     {
-        meters.push_back(meter);
+        meters.push_back(std::move(meter));
         return false;
     }
+
     return true;
 }
 
@@ -24,9 +25,9 @@ auto Maker::print_lines() -> bool
 {
     std::map<Line, std::string> line_names;
 
-    for (auto meter : meters)
+    for (auto &meter : meters)
     {
-        line_names.insert({meter.get_line(), line_enum_to_string(meter.get_line())});
+        line_names.insert({meter->get_line(), line_enum_to_string(meter->get_line())});
     }
 
     if (line_names.empty())
@@ -44,11 +45,11 @@ auto Maker::print_lines() -> bool
 auto Maker::print_line_meters(Line line) -> bool
 {
     bool not_found = true;
-    for (auto meter : meters)
+    for (auto &meter : meters)
     {
-        if (meter.get_line() == line)
+        if (meter->get_line() == line)
         {
-            meter.print_meter();
+            meter->print_meter();
             not_found = false;
         }
     }
@@ -61,8 +62,8 @@ auto Maker::print_line_meters(Line line) -> bool
 
 auto Maker::print_all_meters() -> void
 {
-    for (auto meter : meters)
+    for (auto &meter : meters)
     {
-        meter.print_meter();
+        meter->print_meter();
     }
 }

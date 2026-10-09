@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <string>
 
 enum class MeterType
@@ -30,7 +31,7 @@ auto line_enum_to_string(Line line) -> std::string;
 
 class Meter
 {
-private:
+protected:
     static int ID;
     int id{0};
     std::string meter_name{};
@@ -40,6 +41,8 @@ private:
 
 public:
     Meter(std::string meter_name, MeterType meter_type, Client client, Line line);
+    virtual ~Meter() = default;
+    virtual auto Clone() -> std::unique_ptr<Meter> const = 0;
     auto print_meter() -> void;
     auto get_id() -> int
     {
@@ -60,5 +63,17 @@ public:
     auto get_line() -> Line
     {
         return line;
+    }
+    auto set_meter_name(std::string name) -> void
+    {
+        meter_name = name;
+    }
+    auto set_meter_type(MeterType type) -> void
+    {
+        meter_type = type;
+    }
+    auto set_client(Client client) -> void
+    {
+        client = client;
     }
 };
