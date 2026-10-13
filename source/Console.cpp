@@ -85,6 +85,11 @@ auto Console::get_meter_name_input() -> std::string
     std::string meter_name;
     std::cout << "\nDigite o nome do modelo do medidor: ";
     std::getline(std::cin >> std::ws, meter_name);
+    if (meter_name.length() > 10)
+    {
+        std::cout << "Nome do modelo do medidor não pode ter mais de 10 caracteres. Tente novamente." << std::endl;
+        return get_meter_name_input();
+    }
     return meter_name;
 }
 
