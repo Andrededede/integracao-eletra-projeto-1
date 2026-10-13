@@ -13,6 +13,15 @@ Meter::Meter(std::string meter_name, MeterType meter_type, Client client, Line l
 {
 }
 
+Meter::Meter(Meter &outro)
+    : id(++ID)
+    , meter_name(outro.meter_name)
+    , meter_type(outro.meter_type)
+    , client(outro.client)
+    , line(outro.line)
+{
+}
+
 auto Meter::print_meter() -> void
 {
     std::cout << line_enum_to_string(line) << " " << meter_name << std::endl

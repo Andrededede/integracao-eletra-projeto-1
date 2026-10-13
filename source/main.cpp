@@ -114,7 +114,10 @@ int main()
                   << "4. Exibir todos os modelos da Linha Apollo" << std::endl
                   << "5. Exibir todos os modelos da Linha Cronos" << std::endl
                   << "6. Exibir todos os modelos da Linha Zeus" << std::endl
-                  << "7. Sair da Aplicação" << std::endl;
+                  << "7. Adicionar um novo modelo a uma linha específica" << std::endl
+                  << "8. Remover o modelo informando o seu id" << std::endl
+                  << "9. Realizar Leitura de Fase de um medidor" << std::endl
+                  << "10. Sair da Aplicação" << std::endl;
         std::cin >> op;
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -139,11 +142,11 @@ int main()
         case 6:
             Eletra.print_line_meters(Line::ZEUS);
             break;
-        case 7:
+        case 10:
             break;
         default:
             std::cout << "Opção inválida" << std::endl;
             break;
         }
-    } while (op != 7);
+    } while (op != 10);
 }

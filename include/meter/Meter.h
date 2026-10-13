@@ -41,6 +41,7 @@ protected:
 
 public:
     Meter(std::string meter_name, MeterType meter_type, Client client, Line line);
+    Meter(Meter &outro);
     virtual ~Meter() = default;
     virtual auto Clone() -> std::unique_ptr<Meter> const = 0;
     auto print_meter() -> void;

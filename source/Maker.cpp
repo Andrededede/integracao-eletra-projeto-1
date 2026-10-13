@@ -10,7 +10,7 @@ Maker::Maker(std::string maker_name)
 auto Maker::add_meter(std::unique_ptr<Meter> meter) -> bool
 {
     auto it = std::find_if(meters.begin(), meters.end(), [&meter](const std::unique_ptr<Meter> &m) {
-        return (m->get_meter_name() == meter->get_meter_name()) && (m->get_id() == meter->get_id());
+        return (m->get_meter_name() == meter->get_meter_name()) || (m->get_id() == meter->get_id());
     });
     if (it == meters.end())
     {
