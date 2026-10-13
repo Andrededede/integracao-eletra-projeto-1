@@ -12,6 +12,7 @@ add_library(
     ${PROJECT_NAME}_lib
 
     ${PROJECT_SOURCE_DIR}/source/Maker.cpp
+    ${PROJECT_SOURCE_DIR}/source/Console.cpp
     ${PROJECT_SOURCE_DIR}/source/meter/MeterFactory.cpp
     ${PROJECT_SOURCE_DIR}/source/meter/Meter.cpp
     ${PROJECT_SOURCE_DIR}/source/meter/lines/Apolo.cpp

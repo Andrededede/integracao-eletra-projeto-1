@@ -10,11 +10,23 @@ Maker::Maker(std::string maker_name)
 auto Maker::add_meter(std::unique_ptr<Meter> meter) -> bool
 {
     auto it = std::find_if(meters.begin(), meters.end(), [&meter](const std::unique_ptr<Meter> &m) {
-        return (m->get_meter_name() == meter->get_meter_name()) || (m->get_id() == meter->get_id());
+        return ((m->get_line() == meter->get_line()) && (m->get_meter_name() == meter->get_meter_name())) || (m->get_id() == meter->get_id());
     });
     if (it == meters.end())
     {
         meters.push_back(std::move(meter));
+        return false;
+    }
+
+    return true;
+}
+
+auto Maker::remove_meter(int id) -> bool
+{
+    auto it = std::find_if(meters.begin(), meters.end(), [id](const std::unique_ptr<Meter> &m) { return m->get_id() == id; });
+    if (it != meters.end())
+    {
+        meters.erase(it);
         return false;
     }
 
@@ -58,6 +70,18 @@ auto Maker::print_line_meters(Line line) -> bool
         std::cout << "Nenhum medidor encontrado para a linha " << line_enum_to_string(line) << "." << std::endl;
     }
     return not_found;
+}
+
+auto Maker::print_meter_line(int id) -> bool
+{
+    auto it = std::find_if(meters.begin(), meters.end(), [id](const std::unique_ptr<Meter> &m) { return m->get_id() == id; });
+    if (it != meters.end())
+    {
+        std::cout << line_enum_to_string((*it)->get_line()) << std::endl;
+        return false;
+    }
+
+    return true;
 }
 
 auto Maker::print_all_meters() -> void

@@ -13,9 +13,11 @@ private:
 public:
     Maker(std::string maker_name);
     auto add_meter(std::unique_ptr<Meter> meter) -> bool;
+    auto remove_meter(int id) -> bool;
     auto print_lines() -> bool;
     auto print_line_meters(Line line) -> bool;
     auto print_all_meters() -> void;
+    auto print_meter_line(int id) -> bool;
     auto get_maker_name() -> std::string
     {
         return maker_name;
