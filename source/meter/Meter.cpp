@@ -1,4 +1,4 @@
-#include "../include/Meter.h"
+#include "../../include/meter/Meter.h"
 #include <iostream>
 #include <string>
 
@@ -10,6 +10,15 @@ Meter::Meter(std::string meter_name, MeterType meter_type, Client client, Line l
     , meter_type(meter_type)
     , client(client)
     , line(line)
+{
+}
+
+Meter::Meter(Meter &outro)
+    : id(++ID)
+    , meter_name(outro.meter_name)
+    , meter_type(outro.meter_type)
+    , client(outro.client)
+    , line(outro.line)
 {
 }
 
