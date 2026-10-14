@@ -1,9 +1,10 @@
 #include "../include/Console.h"
 #include <iostream>
 
-Console::Console(std::unique_ptr<Maker> maker, std::unique_ptr<MeterFactory> meter_factory)
+Console::Console(std::unique_ptr<Maker> maker, std::unique_ptr<MeterFactory> meter_factory, std::unique_ptr<Table> table)
     : maker(std::move(maker))
     , meter_factory(std::move(meter_factory))
+    , table(std::move(table))
 {
 }
 
@@ -93,6 +94,21 @@ auto Console::get_meter_name_input() -> std::string
     return meter_name;
 }
 
+auto Console::get_meter_id_input() -> int
+{
+    int id{0};
+    std::cout << "\nDigite o ID do medidor: ";
+    std::cin >> id;
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    if (id <= 0)
+    {
+        std::cout << "ID do medidor deve ser um número positivo. Tente novamente." << std::endl;
+        return get_meter_id_input();
+    }
+    return id;
+}
+
 auto Console::add_meter_input() -> void
 {
     auto line = get_line_input();
@@ -100,11 +116,7 @@ auto Console::add_meter_input() -> void
     auto client = get_client_input();
     auto meter_name = get_meter_name_input();
 
-    std::unique_ptr<Meter> new_meter = meter_factory->create_meter(line);
-    new_meter->set_meter_name(meter_name);
-    new_meter->set_meter_type(meter_type);
-    new_meter->set_client(client);
-
+    std::unique_ptr<Meter> new_meter = meter_factory->create_meter(line, meter_name, meter_type, client);
     maker->add_meter(std::move(new_meter));
 }
 
@@ -135,28 +147,25 @@ auto Console::display_menu() -> void
             maker->print_lines();
             break;
         case 2:
-            maker->print_all_meters();
+            table->print_table(maker->get_all_meters());
             break;
         case 3:
-            maker->print_line_meters(Line::ARES);
+            table->print_table(maker->get_line_meters(Line::ARES));
             break;
         case 4:
-            maker->print_line_meters(Line::APOLO);
+            table->print_table(maker->get_line_meters(Line::APOLO));
             break;
         case 5:
-            maker->print_line_meters(Line::CRONOS);
+            table->print_table(maker->get_line_meters(Line::CRONOS));
             break;
         case 6:
-            maker->print_line_meters(Line::ZEUS);
+            table->print_table(maker->get_line_meters(Line::ZEUS));
             break;
         case 7:
             add_meter_input();
             break;
         case 8:
-            std::cout << "Digite o ID do medidor que deseja remover: ";
-            std::cin >> id;
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            id = get_meter_id_input();
             if (maker->remove_meter(id))
             {
                 std::cout << "Medidor com ID " << id << " não encontrado." << std::endl;
@@ -167,14 +176,16 @@ auto Console::display_menu() -> void
             }
             break;
         case 9:
-            std::cout << "Digite o ID do medidor que deseja visualizar: ";
-            std::cin >> id;
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            if (maker->print_meter_line(id))
+            id = get_meter_id_input();
+            if (maker->get_meter_line(id).empty())
             {
                 std::cout << "Medidor com ID " << id << " não encontrado." << std::endl;
             }
+            else
+            {
+                std::cout << "Medidor com ID " << id << " é do tipo: " << maker->get_meter_type(id) << std::endl;
+            }
+
             break;
         case 10:
             break;

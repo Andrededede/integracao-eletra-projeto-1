@@ -37,7 +37,7 @@ auto Maker::print_lines() -> bool
 {
     std::map<Line, std::string> line_names;
 
-    for (auto &meter : meters)
+    for (const auto &meter : meters)
     {
         line_names.insert({meter->get_line(), line_enum_to_string(meter->get_line())});
     }
@@ -47,21 +47,22 @@ auto Maker::print_lines() -> bool
         std::cout << "Nenhuma linha disponível." << std::endl;
         return true;
     }
-    for (auto line_pair : line_names)
+    for (const auto &line_pair : line_names)
     {
         std::cout << line_pair.second << std::endl;
     }
     return false;
 }
 
-auto Maker::print_line_meters(Line line) -> bool
+auto Maker::get_line_meters(const Line &line) -> std::vector<Table::row_t>
 {
+    std::vector<Table::row_t> result;
     bool not_found = true;
-    for (auto &meter : meters)
+    for (const auto &meter : meters)
     {
         if (meter->get_line() == line)
         {
-            meter->print_meter();
+            result.push_back(meter->get_meter_as_row());
             not_found = false;
         }
     }
@@ -69,25 +70,36 @@ auto Maker::print_line_meters(Line line) -> bool
     {
         std::cout << "Nenhum medidor encontrado para a linha " << line_enum_to_string(line) << "." << std::endl;
     }
-    return not_found;
+    return result;
 }
 
-auto Maker::print_meter_line(int id) -> bool
+auto Maker::get_meter_line(int id) -> std::string
 {
     auto it = std::find_if(meters.begin(), meters.end(), [id](const std::unique_ptr<Meter> &m) { return m->get_id() == id; });
     if (it != meters.end())
     {
-        std::cout << line_enum_to_string((*it)->get_line()) << std::endl;
-        return false;
+        return line_enum_to_string((*it)->get_line());
     }
-
-    return true;
+    return "";
 }
 
-auto Maker::print_all_meters() -> void
+auto Maker::get_meter_type(int id) -> std::string
 {
-    for (auto &meter : meters)
+    auto it = std::find_if(meters.begin(), meters.end(), [id](const std::unique_ptr<Meter> &m) { return m->get_id() == id; });
+    if (it != meters.end())
     {
-        meter->print_meter();
+        return meter_type_enum_to_string((*it)->get_meter_type());
     }
+    return "";
+}
+
+auto Maker::get_all_meters() -> std::vector<Table::row_t>
+{
+    std::vector<Table::row_t> result;
+    for (const auto &meter : meters)
+    {
+        Table::row_t row = meter->get_meter_as_row();
+        result.push_back(row);
+    }
+    return result;
 }
