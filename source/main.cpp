@@ -51,6 +51,7 @@ int main()
     std::unique_ptr<Meter> zeus_8023 = meter_factory->create_meter(Line::ZEUS, "8023", MeterType::THREE_PHASE, Client::COELCE);
     Eletra->add_meter(std::move(zeus_8023));
 
-    Console console(std::move(Eletra), std::move(meter_factory));
+    std::unique_ptr<Table> table = std::make_unique<Table>();
+    Console console(std::move(Eletra), std::move(meter_factory), std::move(table));
     console.display_menu();
 }
