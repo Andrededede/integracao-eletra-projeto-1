@@ -15,6 +15,5 @@ auto MeterFactory::create_meter(const Line &line, const std::string &name, const
     meter->set_meter_name(name);
     meter->set_meter_type(type);
     meter->set_client(client);
-    std::cout << client_enum_to_string(client) << std::endl;
     return meter;
 }
