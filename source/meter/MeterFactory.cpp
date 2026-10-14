@@ -1,4 +1,5 @@
 #include "../../include/meter/MeterFactory.h"
+#include <iostream>
 
 MeterFactory::MeterFactory()
 {
@@ -8,7 +9,12 @@ MeterFactory::MeterFactory()
     prototypes.insert({Line::ZEUS, std::make_unique<Zeus>("Default Zeus Single Phase", MeterType::SINGLE_PHASE, Client::EDP)});
 }
 
-auto MeterFactory::create_meter(Line line) -> std::unique_ptr<Meter>
+auto MeterFactory::create_meter(const Line &line, const std::string &name, const MeterType &type, const Client &client) -> std::unique_ptr<Meter>
 {
-    return prototypes.at(line)->Clone();
+    std::unique_ptr<Meter> meter = prototypes.at(line)->Clone();
+    meter->set_meter_name(name);
+    meter->set_meter_type(type);
+    meter->set_client(client);
+    std::cout << client_enum_to_string(client) << std::endl;
+    return meter;
 }

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <array>
 #include <memory>
 #include <string>
 
@@ -44,7 +45,7 @@ public:
     Meter(Meter &outro);
     virtual ~Meter() = default;
     virtual auto Clone() -> std::unique_ptr<Meter> const = 0;
-    auto print_meter() -> void;
+    auto get_meter_as_row() -> std::array<std::string, 5>;
     auto get_id() -> int
     {
         return id;
@@ -73,8 +74,8 @@ public:
     {
         meter_type = type;
     }
-    auto set_client(Client client) -> void
+    auto set_client(Client c) -> void
     {
-        client = client;
+        client = c;
     }
 };

@@ -22,13 +22,9 @@ Meter::Meter(Meter &outro)
 {
 }
 
-auto Meter::print_meter() -> void
+auto Meter::get_meter_as_row() -> std::array<std::string, 5>
 {
-    std::cout << line_enum_to_string(line) << " " << meter_name << std::endl
-              << "  ID: " << id << std::endl
-              << "  Tipo: " << meter_type_enum_to_string(meter_type) << std::endl
-              << "  Cliente: " << client_enum_to_string(client) << std::endl
-              << "  Linha: " << line_enum_to_string(line) << std::endl;
+    return {std::to_string(id), meter_name, meter_type_enum_to_string(meter_type), line_enum_to_string(line), client_enum_to_string(client)};
 }
 
 auto meter_type_enum_to_string(MeterType type) -> std::string
