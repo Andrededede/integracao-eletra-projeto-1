@@ -1,71 +1,162 @@
-// #include "../include/Maker.h"
-// #include "../include/meter/MeterFactory.h"
-// #include "catch.hpp"
+#include "../include/Maker.h"
+#include "../include/meter/MeterFactory.h"
+#include "catch.hpp"
 
-// TEST_CASE("Maker names are returned correctly", "[maker]")
-// {
-//     Maker maker("Test Maker");
-//     CHECK(maker.get_maker_name() == "Test Maker");
-// }
+TEST_CASE("Maker names are returned correctly", "[maker]")
+{
+    Maker maker("Test Maker");
+    CHECK(maker.get_maker_name() == "Test Maker");
+}
 
-// TEST_CASE("Meters can be added to a Maker correctly", "[maker]")
-// {
-//     MeterFactory meter_factory;
-//     auto meter1 = meter_factory.create_meter(Line::APOLO);
-//     auto meter2 = meter_factory.create_meter(Line::CRONOS);
-//     auto meter3 = meter_factory.create_meter(Line::APOLO);
+TEST_CASE("Meters can be added to a Maker correctly", "[maker]")
+{
+    MeterFactory meter_factory;
+    auto meter1 = meter_factory.create_meter(Line::APOLO, "Default Apolo Single Phase", MeterType::SINGLE_PHASE, Client::EDP);
+    auto meter2 = meter_factory.create_meter(Line::CRONOS, "Default Cronos Single Phase", MeterType::SINGLE_PHASE, Client::EDP);
+    auto meter_1_clone = meter_factory.create_meter(Line::APOLO, "Default Apolo Single Phase", MeterType::SINGLE_PHASE, Client::EDP);
 
-//     Maker maker("Test Maker");
+    Maker maker("Test Maker");
 
-//     SECTION("Adding a new meter returns 0")
-//     {
-//         CHECK_FALSE(maker.add_meter(std::move(meter1)));
-//         CHECK_FALSE(maker.add_meter(std::move(meter2)));
-//     }
+    SECTION("Adding a new meter is successful")
+    {
+        CHECK(maker.add_meter(std::move(meter1)));
+        CHECK(maker.add_meter(std::move(meter2)));
+    }
 
-//     SECTION("Adding a duplicate meter returns 1")
-//     {
-//         CHECK_FALSE(maker.add_meter(std::move(meter1)));
-//         CHECK(maker.add_meter(std::move(meter3)));
-//     }
-// }
+    SECTION("Adding a duplicate meter is unsuccessful")
+    {
+        CHECK(maker.add_meter(std::move(meter1)));
+        CHECK_FALSE(maker.add_meter(std::move(meter_1_clone)));
+    }
+}
 
-// TEST_CASE("Maker can print lines correctly", "[maker]")
-// {
-//     Maker maker("Test Maker");
+TEST_CASE("Meters can be removed from a Maker correctly", "[maker]")
+{
+    MeterFactory meter_factory;
+    auto meter1 = meter_factory.create_meter(Line::APOLO, "Default Apolo Single Phase", MeterType::SINGLE_PHASE, Client::EDP);
+    auto meter2 = meter_factory.create_meter(Line::CRONOS, "Default Cronos Single Phase", MeterType::SINGLE_PHASE, Client::EDP);
 
-//     SECTION("Printing lines with no meters returns 1")
-//     {
-//         CHECK(maker.print_lines());
-//     }
+    Maker maker("Test Maker");
+    maker.add_meter(std::move(meter1));
+    maker.add_meter(std::move(meter2));
 
-//     SECTION("Printing lines with meters returns 0")
-//     {
-//         MeterFactory meter_factory;
-//         maker.add_meter(meter_factory.create_meter(Line::APOLO));
-//         maker.add_meter(meter_factory.create_meter(Line::CRONOS));
-//         CHECK_FALSE(maker.print_lines());
-//     }
-// }
+    SECTION("Removing an existing meter is successful")
+    {
+        CHECK(maker.remove_meter(std::stoi(maker.get_all_meters_rows()[0][0])));
+    }
 
-// TEST_CASE("Maker can print line meters correctly", "[maker]")
-// {
-//     Maker maker("Test Maker");
-//     MeterFactory meter_factory;
-//     auto meter1 = meter_factory.create_meter(Line::APOLO);
-//     auto meter2 = meter_factory.create_meter(Line::CRONOS);
+    SECTION("Removing a non-existing meter is unsuccessful")
+    {
+        CHECK_FALSE(maker.remove_meter(std::stoi(maker.get_all_meters_rows()[1][0]) + 1));
+    }
+}
 
-//     maker.add_meter(std::move(meter1));
-//     maker.add_meter(std::move(meter2));
+TEST_CASE("Maker can return active lines correctly", "[maker]")
+{
+    Maker maker("Test Maker");
+    MeterFactory meter_factory;
+    auto meter1 = meter_factory.create_meter(Line::APOLO, "Default Apolo Single Phase", MeterType::SINGLE_PHASE, Client::EDP);
+    auto meter2 = meter_factory.create_meter(Line::CRONOS, "Default Cronos Single Phase", MeterType::SINGLE_PHASE, Client::EDP);
 
-//     SECTION("Printing meters for a line with no meters returns 1")
-//     {
-//         CHECK(maker.print_line_meters(Line::ARES));
-//     }
+    maker.add_meter(std::move(meter1));
+    maker.add_meter(std::move(meter2));
 
-//     SECTION("Printing meters for a line with meters returns 0")
-//     {
-//         CHECK_FALSE(maker.print_line_meters(Line::APOLO));
-//         CHECK_FALSE(maker.print_line_meters(Line::CRONOS));
-//     }
-// }
+    SECTION("Getting lines returns the correct number of lines")
+    {
+        auto lines = maker.get_lines();
+        CHECK(lines.size() == 2);
+        CHECK(lines.find(Line::APOLO) != lines.end());
+        CHECK(lines.at(Line::APOLO) == "APOLO");
+        CHECK(lines.find(Line::CRONOS) != lines.end());
+        CHECK(lines.at(Line::CRONOS) == "CRONOS");
+        CHECK(lines.find(Line::ARES) == lines.end());
+    }
+}
+
+TEST_CASE("Maker can get meters of a line correctly", "[maker]")
+{
+    Maker maker("Test Maker");
+    MeterFactory meter_factory;
+    auto meter1 = meter_factory.create_meter(Line::APOLO, "Default Apolo Single Phase", MeterType::SINGLE_PHASE, Client::EDP);
+    auto meter2 = meter_factory.create_meter(Line::CRONOS, "Default Cronos Single Phase", MeterType::SINGLE_PHASE, Client::EDP);
+
+    maker.add_meter(std::move(meter1));
+    maker.add_meter(std::move(meter2));
+
+    SECTION("Getting meters of a line with no meters returns empty vector")
+    {
+        CHECK(maker.get_line_meters_rows(Line::ARES).empty());
+    }
+
+    SECTION("Getting meters of a line with meters")
+    {
+        auto apolo_meters = maker.get_line_meters_rows(Line::APOLO);
+        CHECK(apolo_meters.size() >= 1);
+        CHECK(apolo_meters[0][1] == "Default Apolo Single Phase");
+
+        auto cronos_meters = maker.get_line_meters_rows(Line::CRONOS);
+        CHECK(cronos_meters.size() == 1);
+        CHECK(cronos_meters[0][1] == "Default Cronos Single Phase");
+    }
+}
+
+TEST_CASE("Maker can get the line of a meter correctly", "[maker]")
+{
+    Maker maker("Test Maker");
+    MeterFactory meter_factory;
+    auto meter1 = meter_factory.create_meter(Line::APOLO, "Default Apolo Single Phase", MeterType::SINGLE_PHASE, Client::EDP);
+    auto meter2 = meter_factory.create_meter(Line::CRONOS, "Default Cronos Single Phase", MeterType::SINGLE_PHASE, Client::EDP);
+
+    maker.add_meter(std::move(meter1));
+    maker.add_meter(std::move(meter2));
+
+    SECTION("Getting the line of an existing meter returns the correct line")
+    {
+        int id = std::stoi(maker.get_all_meters_rows()[0][0]);
+        CHECK(maker.get_meter_line(id) == "APOLO");
+    }
+
+    SECTION("Getting the line of a non-existing meter returns ''")
+    {
+        CHECK(maker.get_meter_line(9999) == "");
+    }
+}
+
+TEST_CASE("Maker can get the type of a meter correctly", "[maker]")
+{
+    Maker maker("Test Maker");
+    MeterFactory meter_factory;
+    auto meter1 = meter_factory.create_meter(Line::APOLO, "Default Apolo Single Phase", MeterType::SINGLE_PHASE, Client::EDP);
+    auto meter2 = meter_factory.create_meter(Line::CRONOS, "Default Cronos Single Phase", MeterType::SINGLE_PHASE, Client::EDP);
+
+    maker.add_meter(std::move(meter1));
+    maker.add_meter(std::move(meter2));
+
+    SECTION("Getting the type of an existing meter returns the correct type")
+    {
+        int id = std::stoi(maker.get_all_meters_rows()[0][0]);
+        CHECK(maker.get_meter_type(id) == "SINGLE_PHASE");
+    }
+
+    SECTION("Getting the type of a non-existing meter returns ''")
+    {
+        CHECK(maker.get_meter_type(9999) == "");
+    }
+}
+
+TEST_CASE("Maker can get all meters correctly", "[maker]")
+{
+    Maker maker("Test Maker");
+    MeterFactory meter_factory;
+    auto meter1 = meter_factory.create_meter(Line::APOLO, "Default Apolo Single Phase", MeterType::SINGLE_PHASE, Client::EDP);
+    auto meter2 = meter_factory.create_meter(Line::CRONOS, "Default Cronos Single Phase", MeterType::SINGLE_PHASE, Client::EDP);
+
+    maker.add_meter(std::move(meter1));
+    maker.add_meter(std::move(meter2));
+
+    SECTION("Getting all meters returns the correct number of meters")
+    {
+        auto all_meters = maker.get_all_meters_rows();
+        CHECK(all_meters.size() == 2);
+    }
+}
