@@ -2,6 +2,7 @@
 
 #include <array>
 #include <memory>
+#include <optional>
 #include <string>
 
 enum class MeterType
@@ -77,5 +78,9 @@ public:
     auto set_client(Client c) -> void
     {
         client = c;
+    }
+    auto operator==(const Meter &other) const -> bool
+    {
+        return (((this->line == other.line) && (this->meter_name == other.meter_name)));
     }
 };

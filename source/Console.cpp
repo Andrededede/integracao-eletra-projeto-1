@@ -1,4 +1,5 @@
 #include "../include/Console.h"
+#include <iomanip>
 #include <iostream>
 
 Console::Console(std::unique_ptr<Maker> maker, std::unique_ptr<MeterFactory> meter_factory, std::unique_ptr<Table> table)
@@ -124,6 +125,7 @@ auto Console::display_menu() -> void
 {
     int op{0};
     int id{0};
+    std::map<Line, std::string> lines;
     do
     {
         std::cout << "\nEscolha uma opção:" << std::endl
@@ -144,22 +146,36 @@ auto Console::display_menu() -> void
         switch (op)
         {
         case 1:
-            maker->print_lines();
+            lines = maker->get_lines();
+            if (lines.empty())
+            {
+                std::cout << "Nenhuma linha disponível." << std::endl;
+                break;
+            }
+            std::cout << "+--------+" << std::endl;
+            std::cout << "| " << std::left << std::setw(6) << "Linhas"
+                      << " |" << std::endl;
+            std::cout << "+--------+" << std::endl;
+            for (const auto &line_pair : lines)
+            {
+                std::cout << "| " << std::left << std::setw(6) << line_pair.second << " |" << std::endl;
+            }
+            std::cout << "+--------+" << std::endl;
             break;
         case 2:
-            table->print_table(maker->get_all_meters());
+            table->print_table(maker->get_all_meters_rows());
             break;
         case 3:
-            table->print_table(maker->get_line_meters(Line::ARES));
+            table->print_table(maker->get_line_meters_rows(Line::ARES));
             break;
         case 4:
-            table->print_table(maker->get_line_meters(Line::APOLO));
+            table->print_table(maker->get_line_meters_rows(Line::APOLO));
             break;
         case 5:
-            table->print_table(maker->get_line_meters(Line::CRONOS));
+            table->print_table(maker->get_line_meters_rows(Line::CRONOS));
             break;
         case 6:
-            table->print_table(maker->get_line_meters(Line::ZEUS));
+            table->print_table(maker->get_line_meters_rows(Line::ZEUS));
             break;
         case 7:
             add_meter_input();

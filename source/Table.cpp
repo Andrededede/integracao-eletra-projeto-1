@@ -2,7 +2,7 @@
 #include <iomanip>
 #include <iostream>
 
-Table::row_t table_header = {"id", "Nome", "Tipo", "Linha", "Cliente"};
+row_t table_header = {"id", "Nome", "Tipo", "Linha", "Cliente"};
 
 auto Table::calculate_column_widths(const std::vector<row_t> &table) -> widths_t
 {
@@ -47,6 +47,11 @@ auto Table::print_break(const widths_t &widths) -> void
 
 auto Table::print_table(const std::vector<row_t> &table_body) -> void
 {
+    if (table_body.empty())
+    {
+        std::cout << "Nenhum medidor encontrado." << std::endl;
+        return;
+    }
     auto widths = calculate_column_widths(table_body);
     std::cout.setf(std::ios::left, std::ios::adjustfield);
     print_break(widths);
