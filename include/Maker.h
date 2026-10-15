@@ -17,8 +17,8 @@ public:
     auto add_meter(std::unique_ptr<Meter> meter) -> bool;
     auto remove_meter(int id) -> bool;
     auto get_lines() -> std::map<Line, std::string>;
-    auto get_line_meters_rows(const Line &line) -> std::vector<Table::row_t>;
-    auto get_all_meters_rows() -> std::vector<Table::row_t>;
+    auto get_line_meters_rows(const Line &line) -> std::vector<row_t>;
+    auto get_all_meters_rows() -> std::vector<row_t>;
     auto get_meter_line(int id) -> std::string;
     auto get_meter_type(int id) -> std::string;
     auto get_maker_name() -> std::string

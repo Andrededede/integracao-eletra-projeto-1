@@ -8,16 +8,15 @@ Maker::Maker(std::string maker_name)
 
 auto Maker::add_meter(std::unique_ptr<Meter> meter) -> bool
 {
-    auto it = std::find_if(meters.begin(), meters.end(), [&meter](const auto &m) {
-        return ((m->get_line() == meter->get_line()) && (m->get_meter_name() == meter->get_meter_name())) || (m->get_id() == meter->get_id());
-    });
+    auto it = std::find_if(meters.begin(), meters.end(), [&meter](const std::unique_ptr<Meter> &m) { return *meter == *m; });
+
     if (it == meters.end())
     {
         meters.push_back(std::move(meter));
-        return false;
+        return true;
     }
 
-    return true;
+    return false;
 }
 
 auto Maker::remove_meter(int id) -> bool
@@ -26,10 +25,10 @@ auto Maker::remove_meter(int id) -> bool
     if (it != meters.end())
     {
         meters.erase(it);
-        return false;
+        return true;
     }
 
-    return true;
+    return false;
 }
 
 auto Maker::get_lines() -> std::map<Line, std::string>
@@ -44,9 +43,9 @@ auto Maker::get_lines() -> std::map<Line, std::string>
     return line_names;
 }
 
-auto Maker::get_line_meters_rows(const Line &line) -> std::vector<Table::row_t>
+auto Maker::get_line_meters_rows(const Line &line) -> std::vector<row_t>
 {
-    std::vector<Table::row_t> result;
+    std::vector<row_t> result;
     for (const auto &meter : meters)
     {
         if (meter->get_line() == line)
@@ -77,12 +76,12 @@ auto Maker::get_meter_type(int id) -> std::string
     return "";
 }
 
-auto Maker::get_all_meters_rows() -> std::vector<Table::row_t>
+auto Maker::get_all_meters_rows() -> std::vector<row_t>
 {
-    std::vector<Table::row_t> result;
+    std::vector<row_t> result;
     for (const auto &meter : meters)
     {
-        Table::row_t row = meter->get_meter_as_row();
+        row_t row = meter->get_meter_as_row();
         result.push_back(row);
     }
     return result;

@@ -2,7 +2,7 @@
 #include <iomanip>
 #include <iostream>
 
-Table::row_t table_header = {"id", "Nome", "Tipo", "Linha", "Cliente"};
+row_t table_header = {"id", "Nome", "Tipo", "Linha", "Cliente"};
 
 auto Table::calculate_column_widths(const std::vector<row_t> &table) -> widths_t
 {
