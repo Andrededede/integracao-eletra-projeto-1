@@ -11,9 +11,10 @@ TEST_CASE("Maker names are returned correctly", "[maker]")
 TEST_CASE("Meters can be added to a Maker correctly", "[maker]")
 {
     MeterFactory meter_factory;
-    auto meter1 = meter_factory.create_meter(Line::APOLO, "Default Apolo Single Phase", MeterType::SINGLE_PHASE, Client::EDP);
-    auto meter2 = meter_factory.create_meter(Line::CRONOS, "Default Cronos Single Phase", MeterType::SINGLE_PHASE, Client::EDP);
-    auto meter_1_clone = meter_factory.create_meter(Line::APOLO, "Default Apolo Single Phase", MeterType::SINGLE_PHASE, Client::EDP);
+    auto meter1 = meter_factory.create_meter(Line::APOLO, "Default Apolo Single Phase", MeterType::SINGLE_PHASE, Client::EDP, 220.0f);
+    auto meter2 =
+        meter_factory.create_meter(Line::CRONOS, "Default Cronos Single Phase", MeterType::THREE_PHASE, Client::EDP, 220.0f, 230.0f, 250.0f);
+    auto meter_1_clone = meter_factory.create_meter(Line::APOLO, "Default Apolo Single Phase", MeterType::SINGLE_PHASE, Client::EDP, 220.0f);
 
     Maker maker("Test Maker");
 
@@ -33,8 +34,8 @@ TEST_CASE("Meters can be added to a Maker correctly", "[maker]")
 TEST_CASE("Meters can be removed from a Maker correctly", "[maker]")
 {
     MeterFactory meter_factory;
-    auto meter1 = meter_factory.create_meter(Line::APOLO, "Default Apolo Single Phase", MeterType::SINGLE_PHASE, Client::EDP);
-    auto meter2 = meter_factory.create_meter(Line::CRONOS, "Default Cronos Single Phase", MeterType::SINGLE_PHASE, Client::EDP);
+    auto meter1 = meter_factory.create_meter(Line::APOLO, "Default Apolo Single Phase", MeterType::SINGLE_PHASE, Client::EDP, 220.0f);
+    auto meter2 = meter_factory.create_meter(Line::CRONOS, "Default Cronos Single Phase", MeterType::SINGLE_PHASE, Client::EDP, 220.0f);
 
     Maker maker("Test Maker");
     maker.add_meter(std::move(meter1));
@@ -55,8 +56,8 @@ TEST_CASE("Maker can return active lines correctly", "[maker]")
 {
     Maker maker("Test Maker");
     MeterFactory meter_factory;
-    auto meter1 = meter_factory.create_meter(Line::APOLO, "Default Apolo Single Phase", MeterType::SINGLE_PHASE, Client::EDP);
-    auto meter2 = meter_factory.create_meter(Line::CRONOS, "Default Cronos Single Phase", MeterType::SINGLE_PHASE, Client::EDP);
+    auto meter1 = meter_factory.create_meter(Line::APOLO, "Default Apolo Single Phase", MeterType::SINGLE_PHASE, Client::EDP, 220.0f);
+    auto meter2 = meter_factory.create_meter(Line::CRONOS, "Default Cronos Single Phase", MeterType::SINGLE_PHASE, Client::EDP, 220.0f);
 
     maker.add_meter(std::move(meter1));
     maker.add_meter(std::move(meter2));
@@ -77,8 +78,8 @@ TEST_CASE("Maker can get meters of a line correctly", "[maker]")
 {
     Maker maker("Test Maker");
     MeterFactory meter_factory;
-    auto meter1 = meter_factory.create_meter(Line::APOLO, "Default Apolo Single Phase", MeterType::SINGLE_PHASE, Client::EDP);
-    auto meter2 = meter_factory.create_meter(Line::CRONOS, "Default Cronos Single Phase", MeterType::SINGLE_PHASE, Client::EDP);
+    auto meter1 = meter_factory.create_meter(Line::APOLO, "Default Apolo Single Phase", MeterType::SINGLE_PHASE, Client::EDP, 220.0f);
+    auto meter2 = meter_factory.create_meter(Line::CRONOS, "Default Cronos Single Phase", MeterType::SINGLE_PHASE, Client::EDP, 220.0f);
 
     maker.add_meter(std::move(meter1));
     maker.add_meter(std::move(meter2));
@@ -104,8 +105,8 @@ TEST_CASE("Maker can get the line of a meter correctly", "[maker]")
 {
     Maker maker("Test Maker");
     MeterFactory meter_factory;
-    auto meter1 = meter_factory.create_meter(Line::APOLO, "Default Apolo Single Phase", MeterType::SINGLE_PHASE, Client::EDP);
-    auto meter2 = meter_factory.create_meter(Line::CRONOS, "Default Cronos Single Phase", MeterType::SINGLE_PHASE, Client::EDP);
+    auto meter1 = meter_factory.create_meter(Line::APOLO, "Default Apolo Single Phase", MeterType::SINGLE_PHASE, Client::EDP, 220.0f);
+    auto meter2 = meter_factory.create_meter(Line::CRONOS, "Default Cronos Single Phase", MeterType::SINGLE_PHASE, Client::EDP, 220.0f);
 
     maker.add_meter(std::move(meter1));
     maker.add_meter(std::move(meter2));
@@ -126,8 +127,8 @@ TEST_CASE("Maker can get the type of a meter correctly", "[maker]")
 {
     Maker maker("Test Maker");
     MeterFactory meter_factory;
-    auto meter1 = meter_factory.create_meter(Line::APOLO, "Default Apolo Single Phase", MeterType::SINGLE_PHASE, Client::EDP);
-    auto meter2 = meter_factory.create_meter(Line::CRONOS, "Default Cronos Single Phase", MeterType::SINGLE_PHASE, Client::EDP);
+    auto meter1 = meter_factory.create_meter(Line::APOLO, "Default Apolo Single Phase", MeterType::SINGLE_PHASE, Client::EDP, 220.0f);
+    auto meter2 = meter_factory.create_meter(Line::CRONOS, "Default Cronos Single Phase", MeterType::SINGLE_PHASE, Client::EDP, 220.0f);
 
     maker.add_meter(std::move(meter1));
     maker.add_meter(std::move(meter2));
@@ -148,8 +149,8 @@ TEST_CASE("Maker can get all meters correctly", "[maker]")
 {
     Maker maker("Test Maker");
     MeterFactory meter_factory;
-    auto meter1 = meter_factory.create_meter(Line::APOLO, "Default Apolo Single Phase", MeterType::SINGLE_PHASE, Client::EDP);
-    auto meter2 = meter_factory.create_meter(Line::CRONOS, "Default Cronos Single Phase", MeterType::SINGLE_PHASE, Client::EDP);
+    auto meter1 = meter_factory.create_meter(Line::APOLO, "Default Apolo Single Phase", MeterType::SINGLE_PHASE, Client::EDP, 220.0f);
+    auto meter2 = meter_factory.create_meter(Line::CRONOS, "Default Cronos Single Phase", MeterType::SINGLE_PHASE, Client::EDP, 220.0f);
 
     maker.add_meter(std::move(meter1));
     maker.add_meter(std::move(meter2));
