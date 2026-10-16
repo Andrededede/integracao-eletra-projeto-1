@@ -1,7 +1,7 @@
 #include "../../../include/meter/lines/Apolo.h"
 
-Apolo::Apolo(std::string meter_name, MeterType meter_type, Client client)
-    : Meter(meter_name, meter_type, client, Line::APOLO)
+Apolo::Apolo(std::string meter_name, MeterType meter_type, Client client, float phase1, std::optional<float> phase2, std::optional<float> phase3)
+    : Meter(meter_name, meter_type, client, Line::APOLO, phase1, phase2, phase3)
 {
 }
 

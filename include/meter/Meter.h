@@ -40,9 +40,13 @@ protected:
     MeterType meter_type{};
     Client client{};
     Line line{};
+    float phase1{0.0f};
+    std::optional<float> phase2{std::nullopt};
+    std::optional<float> phase3{std::nullopt};
 
 public:
-    Meter(std::string meter_name, MeterType meter_type, Client client, Line line);
+    Meter(std::string meter_name, MeterType meter_type, Client client, Line line, float phase1, std::optional<float> phase2 = std::nullopt,
+          std::optional<float> phase3 = std::nullopt);
     Meter(Meter &outro);
     virtual ~Meter() = default;
     virtual auto Clone() -> std::unique_ptr<Meter> const = 0;
@@ -67,6 +71,18 @@ public:
     {
         return line;
     }
+    auto get_phase1() -> float
+    {
+        return phase1;
+    }
+    auto get_phase2() -> std::optional<float>
+    {
+        return phase2;
+    }
+    auto get_phase3() -> std::optional<float>
+    {
+        return phase3;
+    }
     auto set_meter_name(std::string name) -> void
     {
         meter_name = name;
@@ -78,6 +94,18 @@ public:
     auto set_client(Client c) -> void
     {
         client = c;
+    }
+    auto set_phase1(float p1) -> void
+    {
+        phase1 = p1;
+    }
+    auto set_phase2(std::optional<float> p2) -> void
+    {
+        phase2 = p2;
+    }
+    auto set_phase3(std::optional<float> p3) -> void
+    {
+        phase3 = p3;
     }
     auto operator==(const Meter &other) const -> bool
     {

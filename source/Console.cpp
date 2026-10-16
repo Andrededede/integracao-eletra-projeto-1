@@ -110,15 +110,25 @@ auto Console::get_meter_id_input() -> int
     return id;
 }
 
-auto Console::add_meter_input() -> void
+auto Console::add_meter_input() -> bool
 {
     auto line = get_line_input();
     auto meter_type = get_meter_type_input();
     auto client = get_client_input();
     auto meter_name = get_meter_name_input();
+    auto result = false;
 
-    std::unique_ptr<Meter> new_meter = meter_factory->create_meter(line, meter_name, meter_type, client);
-    maker->add_meter(std::move(new_meter));
+    if (meter_type == MeterType::SINGLE_PHASE)
+    {
+        std::unique_ptr<Meter> new_meter = meter_factory->create_meter(line, meter_name, meter_type, client, 220.0f);
+        result = maker->add_meter(std::move(new_meter));
+    }
+    if (meter_type == MeterType::THREE_PHASE)
+    {
+        std::unique_ptr<Meter> new_meter = meter_factory->create_meter(line, meter_name, meter_type, client, 220.0f, 230.0f, 250.0f);
+        result = maker->add_meter(std::move(new_meter));
+    }
+    return result;
 }
 
 auto Console::display_menu() -> void
@@ -126,6 +136,8 @@ auto Console::display_menu() -> void
     int op{0};
     int id{0};
     std::map<Line, std::string> lines;
+    std::string meter_type;
+    std::vector<float> phases;
     do
     {
         std::cout << "\nEscolha uma opção:" << std::endl
@@ -178,7 +190,10 @@ auto Console::display_menu() -> void
             table->print_table(maker->get_line_meters_rows(Line::ZEUS));
             break;
         case 7:
-            add_meter_input();
+            if (!add_meter_input())
+            {
+                std::cout << "Erro ao adicionar o medidor." << std::endl;
+            }
             break;
         case 8:
             id = get_meter_id_input();
@@ -193,13 +208,20 @@ auto Console::display_menu() -> void
             break;
         case 9:
             id = get_meter_id_input();
-            if (maker->get_meter_line(id).empty())
+            meter_type = maker->get_meter_type(id);
+            if (meter_type.empty())
             {
                 std::cout << "Medidor com ID " << id << " não encontrado." << std::endl;
             }
             else
             {
-                std::cout << "Medidor com ID " << id << " é do tipo: " << maker->get_meter_type(id) << std::endl;
+                phases = maker->get_meter_phases(id);
+                std::cout << "Leitura de Fase do Medidor " << meter_type << ": ";
+                for (float phase : phases)
+                {
+                    std::cout << phase << " ";
+                }
+                std::cout << std::endl;
             }
 
             break;

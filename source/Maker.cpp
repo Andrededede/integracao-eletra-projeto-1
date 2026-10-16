@@ -76,6 +76,26 @@ auto Maker::get_meter_type(int id) -> std::string
     return "";
 }
 
+auto Maker::get_meter_phases(int id) -> std::vector<float>
+{
+    auto it = std::find_if(meters.begin(), meters.end(), [id](const auto &m) { return m->get_id() == id; });
+    if (it != meters.end())
+    {
+        std::vector<float> phases;
+        phases.push_back((*it)->get_phase1());
+        if ((*it)->get_phase2().has_value())
+        {
+            phases.push_back((*it)->get_phase2().value());
+        }
+        if ((*it)->get_phase3().has_value())
+        {
+            phases.push_back((*it)->get_phase3().value());
+        }
+        return phases;
+    }
+    return {};
+}
+
 auto Maker::get_all_meters_rows() -> std::vector<row_t>
 {
     std::vector<row_t> result;

@@ -11,7 +11,7 @@ TEST_CASE("Meter properties", "[meter]")
 
     SECTION("Meter properties are returned correctly")
     {
-        auto meter = meter_factory.create_meter(Line::APOLO, "Default Apolo Single Phase", MeterType::SINGLE_PHASE, Client::EDP);
+        auto meter = meter_factory.create_meter(Line::APOLO, "Default Apolo Single Phase", MeterType::SINGLE_PHASE, Client::EDP, 220.0f);
         CHECK(meter->get_meter_name() == "Default Apolo Single Phase");
         CHECK(meter->get_meter_type() == MeterType::SINGLE_PHASE);
         CHECK(meter->get_client() == Client::EDP);
@@ -20,15 +20,15 @@ TEST_CASE("Meter properties", "[meter]")
 
     SECTION("Meter ID increments correctly")
     {
-        auto meter = meter_factory.create_meter(Line::APOLO, "Default Apolo Single Phase", MeterType::SINGLE_PHASE, Client::EDP);
-        auto meter2 = meter_factory.create_meter(Line::CRONOS, "Default Cronos Single Phase", MeterType::SINGLE_PHASE, Client::EDP);
+        auto meter = meter_factory.create_meter(Line::APOLO, "Default Apolo Single Phase", MeterType::SINGLE_PHASE, Client::EDP, 220.0f);
+        auto meter2 = meter_factory.create_meter(Line::CRONOS, "Default Cronos Single Phase", MeterType::SINGLE_PHASE, Client::EDP, 220.0f);
         CHECK(meter2->get_id() == meter->get_id() + 1);
     }
 }
 
 TEST_CASE("Apolo meter creation", "[meter]")
 {
-    auto apolo_meter = std::make_unique<Apolo>("Default Apolo Single Phase", MeterType::SINGLE_PHASE, Client::EDP);
+    auto apolo_meter = std::make_unique<Apolo>("Default Apolo Single Phase", MeterType::SINGLE_PHASE, Client::EDP, 220.0f);
     SECTION("Apolo meter properties are returned correctly")
     {
         CHECK(apolo_meter->get_meter_name() == "Default Apolo Single Phase");
@@ -40,7 +40,7 @@ TEST_CASE("Apolo meter creation", "[meter]")
 
 TEST_CASE("Ares meter creation", "[meter]")
 {
-    auto ares_meter = std::make_unique<Ares>("Default Ares Single Phase", MeterType::SINGLE_PHASE, Client::EDP);
+    auto ares_meter = std::make_unique<Ares>("Default Ares Single Phase", MeterType::SINGLE_PHASE, Client::EDP, 220.0f);
     SECTION("Ares meter properties are returned correctly")
     {
         CHECK(ares_meter->get_meter_name() == "Default Ares Single Phase");
@@ -52,7 +52,7 @@ TEST_CASE("Ares meter creation", "[meter]")
 
 TEST_CASE("Cronos meter creation", "[meter]")
 {
-    auto cronos_meter = std::make_unique<Cronos>("Default Cronos Single Phase", MeterType::SINGLE_PHASE, Client::EDP);
+    auto cronos_meter = std::make_unique<Cronos>("Default Cronos Single Phase", MeterType::SINGLE_PHASE, Client::EDP, 220.0f);
     SECTION("Cronos meter properties are returned correctly")
     {
         CHECK(cronos_meter->get_meter_name() == "Default Cronos Single Phase");
@@ -64,7 +64,7 @@ TEST_CASE("Cronos meter creation", "[meter]")
 
 TEST_CASE("Zeus meter creation", "[meter]")
 {
-    auto zeus_meter = std::make_unique<Zeus>("Default Zeus Single Phase", MeterType::SINGLE_PHASE, Client::EDP);
+    auto zeus_meter = std::make_unique<Zeus>("Default Zeus Single Phase", MeterType::SINGLE_PHASE, Client::EDP, 220.0f);
     SECTION("Zeus meter properties are returned correctly")
     {
         CHECK(zeus_meter->get_meter_name() == "Default Zeus Single Phase");
@@ -80,7 +80,7 @@ TEST_CASE("MeterFactory creates meters correctly", "[meter]")
 
     SECTION("Creating an Apolo meter keeps the correct properties")
     {
-        auto apolo_meter = meter_factory.create_meter(Line::APOLO, "Apolo Test Meter", MeterType::SINGLE_PHASE, Client::EDP);
+        auto apolo_meter = meter_factory.create_meter(Line::APOLO, "Apolo Test Meter", MeterType::SINGLE_PHASE, Client::EDP, 220.0f);
         CHECK(apolo_meter->get_line() == Line::APOLO);
         CHECK(apolo_meter->get_meter_name() == "Apolo Test Meter");
         CHECK(apolo_meter->get_meter_type() == MeterType::SINGLE_PHASE);
@@ -89,7 +89,8 @@ TEST_CASE("MeterFactory creates meters correctly", "[meter]")
 
     SECTION("Creating a Cronos meter keeps the correct properties")
     {
-        auto cronos_meter = meter_factory.create_meter(Line::CRONOS, "Cronos Test Meter", MeterType::THREE_PHASE, Client::CEMIG);
+        auto cronos_meter =
+            meter_factory.create_meter(Line::CRONOS, "Cronos Test Meter", MeterType::THREE_PHASE, Client::CEMIG, 220.0f, 230.0f, 250.0f);
         CHECK(cronos_meter->get_line() == Line::CRONOS);
         CHECK(cronos_meter->get_meter_name() == "Cronos Test Meter");
         CHECK(cronos_meter->get_meter_type() == MeterType::THREE_PHASE);
@@ -98,7 +99,7 @@ TEST_CASE("MeterFactory creates meters correctly", "[meter]")
 
     SECTION("Creating an Ares meter keeps the correct properties")
     {
-        auto ares_meter = meter_factory.create_meter(Line::ARES, "Ares Test Meter", MeterType::SINGLE_PHASE, Client::COPEL);
+        auto ares_meter = meter_factory.create_meter(Line::ARES, "Ares Test Meter", MeterType::SINGLE_PHASE, Client::COPEL, 220.0f);
         CHECK(ares_meter->get_line() == Line::ARES);
         CHECK(ares_meter->get_meter_name() == "Ares Test Meter");
         CHECK(ares_meter->get_meter_type() == MeterType::SINGLE_PHASE);
@@ -107,7 +108,7 @@ TEST_CASE("MeterFactory creates meters correctly", "[meter]")
 
     SECTION("Creating a Zeus meter keeps the correct properties")
     {
-        auto zeus_meter = meter_factory.create_meter(Line::ZEUS, "Zeus Test Meter", MeterType::THREE_PHASE, Client::COELCE);
+        auto zeus_meter = meter_factory.create_meter(Line::ZEUS, "Zeus Test Meter", MeterType::THREE_PHASE, Client::COELCE, 220.0f, 230.0f, 250.0f);
         CHECK(zeus_meter->get_line() == Line::ZEUS);
         CHECK(zeus_meter->get_meter_name() == "Zeus Test Meter");
         CHECK(zeus_meter->get_meter_type() == MeterType::THREE_PHASE);
@@ -155,7 +156,7 @@ TEST_CASE("Enum to string conversion", "[meter]")
 TEST_CASE("Meter row representation", "[meter]")
 {
     MeterFactory meter_factory;
-    auto meter = meter_factory.create_meter(Line::APOLO, "Default Apolo Single Phase", MeterType::SINGLE_PHASE, Client::EDP);
+    auto meter = meter_factory.create_meter(Line::APOLO, "Default Apolo Single Phase", MeterType::SINGLE_PHASE, Client::EDP, 220.0f);
     auto row = meter->get_meter_as_row();
 
     SECTION("Meter row representation has correct size")
@@ -176,9 +177,10 @@ TEST_CASE("Meter row representation", "[meter]")
 TEST_CASE("Meter equality operator", "[meter]")
 {
     MeterFactory meter_factory;
-    auto meter1 = meter_factory.create_meter(Line::APOLO, "Default Apolo Single Phase", MeterType::SINGLE_PHASE, Client::EDP);
-    auto meter2 = meter_factory.create_meter(Line::APOLO, "Default Apolo Single Phase", MeterType::THREE_PHASE, Client::COPEL);
-    auto meter3 = meter_factory.create_meter(Line::CRONOS, "Default Cronos Single Phase", MeterType::SINGLE_PHASE, Client::EDP);
+    auto meter1 = meter_factory.create_meter(Line::APOLO, "Default Apolo Single Phase", MeterType::SINGLE_PHASE, Client::EDP, 220.0f);
+    auto meter2 =
+        meter_factory.create_meter(Line::APOLO, "Default Apolo Single Phase", MeterType::THREE_PHASE, Client::COPEL, 220.0f, 230.0f, 250.0f);
+    auto meter3 = meter_factory.create_meter(Line::CRONOS, "Default Cronos Single Phase", MeterType::SINGLE_PHASE, Client::EDP, 220.0f);
 
     SECTION("Meters with the same line and name are equal")
     {
@@ -194,7 +196,8 @@ TEST_CASE("Meter equality operator", "[meter]")
 TEST_CASE("Meter cloning", "[meter]")
 {
     MeterFactory meter_factory;
-    auto original_meter = meter_factory.create_meter(Line::APOLO, "Apolo Three Phase", MeterType::THREE_PHASE, Client::COELCE);
+    auto original_meter =
+        meter_factory.create_meter(Line::APOLO, "Apolo Three Phase", MeterType::THREE_PHASE, Client::COELCE, 220.0f, 230.0f, 250.0f);
     auto cloned_meter = original_meter->Clone();
 
     SECTION("Cloned meter has the same properties as the original")
