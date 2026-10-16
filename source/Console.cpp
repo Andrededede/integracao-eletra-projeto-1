@@ -217,18 +217,11 @@ auto Console::display_menu() -> void
             {
                 phases = maker->get_meter_phases(id);
                 std::cout << "Leitura de Fase do Medidor " << meter_type << ": ";
-                if (meter_type == "SINGLE_PHASE")
+                for (float phase : phases)
                 {
-                    std::cout << phases[0] << std::endl;
+                    std::cout << phase << " ";
                 }
-                else if (meter_type == "THREE_PHASE")
-                {
-                    for (float phase : phases)
-                    {
-                        std::cout << phase;
-                    }
-                    std::cout << std::endl;
-                }
+                std::cout << std::endl;
             }
 
             break;
