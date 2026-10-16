@@ -117,9 +117,9 @@ TEST_CASE("Maker can get the line of a meter correctly", "[maker]")
         CHECK(maker.get_meter_line(id) == "APOLO");
     }
 
-    SECTION("Getting the line of a non-existing meter returns ''")
+    SECTION("Getting the line of a non-existing meter returns std::nullopt")
     {
-        CHECK(maker.get_meter_line(9999) == "");
+        CHECK(maker.get_meter_line(9999) == std::nullopt);
     }
 }
 
@@ -139,9 +139,9 @@ TEST_CASE("Maker can get the type of a meter correctly", "[maker]")
         CHECK(maker.get_meter_type(id) == "SINGLE_PHASE");
     }
 
-    SECTION("Getting the type of a non-existing meter returns ''")
+    SECTION("Getting the type of a non-existing meter returns std::nullopt")
     {
-        CHECK(maker.get_meter_type(9999) == "");
+        CHECK(maker.get_meter_type(9999) == std::nullopt);
     }
 }
 

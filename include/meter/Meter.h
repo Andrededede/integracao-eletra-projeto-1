@@ -27,9 +27,9 @@ enum class Line
     ZEUS,
 };
 
-auto meter_type_enum_to_string(MeterType type) -> std::string;
-auto client_enum_to_string(Client client) -> std::string;
-auto line_enum_to_string(Line line) -> std::string;
+auto meter_type_enum_to_string(MeterType type) -> std::optional<std::string>;
+auto client_enum_to_string(Client client) -> std::optional<std::string>;
+auto line_enum_to_string(Line line) -> std::optional<std::string>;
 
 class Meter
 {

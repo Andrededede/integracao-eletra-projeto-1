@@ -19,8 +19,8 @@ public:
     auto get_lines() -> std::map<Line, std::string>;
     auto get_line_meters_rows(const Line &line) -> std::vector<row_t>;
     auto get_all_meters_rows() -> std::vector<row_t>;
-    auto get_meter_line(int id) -> std::string;
-    auto get_meter_type(int id) -> std::string;
+    auto get_meter_line(int id) -> std::optional<std::string>;
+    auto get_meter_type(int id) -> std::optional<std::string>;
     auto get_meter_phases(int id) -> std::vector<float>;
     auto get_maker_name() -> std::string
     {

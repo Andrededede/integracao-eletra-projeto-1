@@ -37,7 +37,7 @@ auto Maker::get_lines() -> std::map<Line, std::string>
 
     for (const auto &meter : meters)
     {
-        line_names.insert({meter->get_line(), line_enum_to_string(meter->get_line())});
+        line_names.insert({meter->get_line(), line_enum_to_string(meter->get_line()).value_or("UNKNOWN")});
     }
 
     return line_names;
@@ -56,24 +56,24 @@ auto Maker::get_line_meters_rows(const Line &line) -> std::vector<row_t>
     return result;
 }
 
-auto Maker::get_meter_line(int id) -> std::string
+auto Maker::get_meter_line(int id) -> std::optional<std::string>
 {
     auto it = std::find_if(meters.begin(), meters.end(), [id](const auto &m) { return m->get_id() == id; });
     if (it != meters.end())
     {
         return line_enum_to_string((*it)->get_line());
     }
-    return "";
+    return std::nullopt;
 }
 
-auto Maker::get_meter_type(int id) -> std::string
+auto Maker::get_meter_type(int id) -> std::optional<std::string>
 {
     auto it = std::find_if(meters.begin(), meters.end(), [id](const auto &m) { return m->get_id() == id; });
     if (it != meters.end())
     {
         return meter_type_enum_to_string((*it)->get_meter_type());
     }
-    return "";
+    return std::nullopt;
 }
 
 auto Maker::get_meter_phases(int id) -> std::vector<float>

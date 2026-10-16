@@ -28,10 +28,11 @@ Meter::Meter(Meter &outro)
 
 auto Meter::get_meter_as_row() -> std::array<std::string, 5>
 {
-    return {std::to_string(id), meter_name, meter_type_enum_to_string(meter_type), line_enum_to_string(line), client_enum_to_string(client)};
+    return {std::to_string(id), meter_name, meter_type_enum_to_string(meter_type).value_or("UNKNOWN"), line_enum_to_string(line).value_or("UNKNOWN"),
+            client_enum_to_string(client).value_or("UNKNOWN")};
 }
 
-auto meter_type_enum_to_string(MeterType type) -> std::string
+auto meter_type_enum_to_string(MeterType type) -> std::optional<std::string>
 {
     switch (type)
     {
@@ -40,11 +41,11 @@ auto meter_type_enum_to_string(MeterType type) -> std::string
     case MeterType::THREE_PHASE:
         return "THREE_PHASE";
     default:
-        return "UNKNOWN";
+        return std::nullopt;
     }
 }
 
-auto line_enum_to_string(Line line) -> std::string
+auto line_enum_to_string(Line line) -> std::optional<std::string>
 {
     switch (line)
     {
@@ -57,11 +58,11 @@ auto line_enum_to_string(Line line) -> std::string
     case Line::ZEUS:
         return "ZEUS";
     default:
-        return "UNKNOWN";
+        return std::nullopt;
     }
 }
 
-auto client_enum_to_string(Client client) -> std::string
+auto client_enum_to_string(Client client) -> std::optional<std::string>
 {
     switch (client)
     {
@@ -74,6 +75,6 @@ auto client_enum_to_string(Client client) -> std::string
     case Client::COPEL:
         return "COPEL";
     default:
-        return "UNKNOWN";
+        return std::nullopt;
     }
 }

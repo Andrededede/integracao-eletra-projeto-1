@@ -123,9 +123,9 @@ TEST_CASE("Enum to string conversion", "[meter]")
         CHECK(meter_type_enum_to_string(MeterType::THREE_PHASE) == "THREE_PHASE");
     }
 
-    SECTION("MeterType enum to string conversion returns 'UNKNOWN' for invalid enum")
+    SECTION("MeterType enum to string conversion returns nullopt for invalid enum")
     {
-        CHECK(meter_type_enum_to_string(static_cast<MeterType>(999)) == "UNKNOWN");
+        CHECK(meter_type_enum_to_string(static_cast<MeterType>(999)) == std::nullopt);
     }
 
     SECTION("Client enum to string conversion returns correct string")
@@ -135,9 +135,9 @@ TEST_CASE("Enum to string conversion", "[meter]")
         CHECK(client_enum_to_string(Client::COELCE) == "COELCE");
         CHECK(client_enum_to_string(Client::COPEL) == "COPEL");
     }
-    SECTION("Client enum to string conversion returns 'UNKNOWN' for invalid enum")
+    SECTION("Client enum to string conversion returns nullopt for invalid enum")
     {
-        CHECK(client_enum_to_string(static_cast<Client>(999)) == "UNKNOWN");
+        CHECK(client_enum_to_string(static_cast<Client>(999)) == std::nullopt);
     }
 
     SECTION("Line enum to string conversion returns correct string")
@@ -147,9 +147,9 @@ TEST_CASE("Enum to string conversion", "[meter]")
         CHECK(line_enum_to_string(Line::ARES) == "ARES");
         CHECK(line_enum_to_string(Line::ZEUS) == "ZEUS");
     }
-    SECTION("Line enum to string conversion returns 'UNKNOWN' for invalid enum")
+    SECTION("Line enum to string conversion returns nullopt for invalid enum")
     {
-        CHECK(line_enum_to_string(static_cast<Line>(999)) == "UNKNOWN");
+        CHECK(line_enum_to_string(static_cast<Line>(999)) == std::nullopt);
     }
 }
 

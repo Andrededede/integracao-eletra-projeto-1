@@ -136,7 +136,7 @@ auto Console::display_menu() -> void
     int op{0};
     int id{0};
     std::map<Line, std::string> lines;
-    std::string meter_type;
+    std::optional<std::string> meter_type;
     std::vector<float> phases;
     do
     {
@@ -209,14 +209,14 @@ auto Console::display_menu() -> void
         case 9:
             id = get_meter_id_input();
             meter_type = maker->get_meter_type(id);
-            if (meter_type.empty())
+            if (!meter_type)
             {
                 std::cout << "Medidor com ID " << id << " não encontrado." << std::endl;
             }
             else
             {
                 phases = maker->get_meter_phases(id);
-                std::cout << "Leitura de Fase do Medidor " << meter_type << ": ";
+                std::cout << "Leitura de Fase do Medidor " << *meter_type << ": ";
                 for (float phase : phases)
                 {
                     std::cout << phase << " ";
