@@ -14,7 +14,7 @@ private:
     auto get_client_input() -> Client;
     auto get_meter_name_input() -> std::string;
     auto get_meter_id_input() -> int;
-    auto add_meter_input() -> void;
+    auto add_meter_input() -> bool;
 
 public:
     Console(std::unique_ptr<Maker> maker, std::unique_ptr<MeterFactory> meter_factory, std::unique_ptr<Table> table);

@@ -4,12 +4,16 @@
 
 int Meter::ID = 0;
 
-Meter::Meter(std::string meter_name, MeterType meter_type, Client client, Line line)
+Meter::Meter(std::string meter_name, MeterType meter_type, Client client, Line line, float phase1, std::optional<float> phase2,
+             std::optional<float> phase3)
     : id(++ID)
     , meter_name(meter_name)
     , meter_type(meter_type)
     , client(client)
     , line(line)
+    , phase1(phase1)
+    , phase2(phase2)
+    , phase3(phase3)
 {
 }
 

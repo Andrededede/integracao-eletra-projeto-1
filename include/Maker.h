@@ -21,6 +21,7 @@ public:
     auto get_all_meters_rows() -> std::vector<row_t>;
     auto get_meter_line(int id) -> std::string;
     auto get_meter_type(int id) -> std::string;
+    auto get_meter_phases(int id) -> std::vector<float>;
     auto get_maker_name() -> std::string
     {
         return maker_name;

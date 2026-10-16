@@ -14,5 +14,6 @@ private:
 
 public:
     MeterFactory();
-    auto create_meter(const Line &line, const std::string &name, const MeterType &type, const Client &client) -> std::unique_ptr<Meter>;
+    auto create_meter(const Line &line, const std::string &name, const MeterType &type, const Client &client, float phase1,
+                      std::optional<float> phase2 = std::nullopt, std::optional<float> phase3 = std::nullopt) -> std::unique_ptr<Meter>;
 };
