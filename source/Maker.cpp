@@ -6,6 +6,11 @@ Maker::Maker(std::string maker_name)
 {
 }
 
+auto get_next_meter_id() -> int
+{
+    return next_meter_id++;
+}
+
 auto Maker::add_meter(std::unique_ptr<Meter> meter) -> bool
 {
     auto it = std::find_if(meters.begin(), meters.end(), [&meter](const std::unique_ptr<Meter> &m) { return *meter == *m; });

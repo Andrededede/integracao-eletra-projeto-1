@@ -2,43 +2,6 @@
 #include <iostream>
 #include <string>
 
-int Meter::ID = 0;
-
-Meter::Meter(std::string meter_name, MeterType meter_type, Client client, Line line, float phase1, std::optional<float> phase2,
-             std::optional<float> phase3)
-    : id(++ID)
-    , meter_name(meter_name)
-    , meter_type(meter_type)
-    , client(client)
-    , line(line)
-    , phase1(phase1)
-    , phase2(phase2)
-    , phase3(phase3)
-{
-}
-
-Meter::Meter(int id, std::string meter_name, MeterType meter_type, Client client, Line line, float phase1, std::optional<float> phase2,
-             std::optional<float> phase3)
-    : id(id)
-    , meter_name(meter_name)
-    , meter_type(meter_type)
-    , client(client)
-    , line(line)
-    , phase1(phase1)
-    , phase2(phase2)
-    , phase3(phase3)
-{
-}
-
-Meter::Meter(Meter &outro)
-    : id(++ID)
-    , meter_name(outro.meter_name)
-    , meter_type(outro.meter_type)
-    , client(outro.client)
-    , line(outro.line)
-{
-}
-
 auto Meter::get_meter_as_row() -> std::array<std::string, 5>
 {
     return {std::to_string(id), meter_name, meter_type_enum_to_string(meter_type).value_or("UNKNOWN"), line_enum_to_string(line).value_or("UNKNOWN"),
@@ -90,4 +53,56 @@ auto client_enum_to_string(Client client) -> std::optional<std::string>
     default:
         return std::nullopt;
     }
+}
+
+auto BuilderMeter::Reset() -> void
+{
+    meter = Meter();
+}
+
+auto BuilderMeter::set_id(int id) -> BuilderMeter &
+{
+    meter.set_id(id);
+    return *this;
+}
+auto BuilderMeter::set_meter_name(std::string name) -> BuilderMeter &
+{
+    meter.set_meter_name(name);
+    return *this;
+}
+auto BuilderMeter::set_meter_type(MeterType type) -> BuilderMeter &
+{
+    meter.set_meter_type(type);
+    return *this;
+}
+auto BuilderMeter::set_client(Client client) -> BuilderMeter &
+{
+    meter.set_client(client);
+    return *this;
+}
+auto BuilderMeter::set_line(Line line) -> BuilderMeter &
+{
+    meter.set_line(line);
+    return *this;
+}
+auto BuilderMeter::set_phase1(float phase1) -> BuilderMeter &
+{
+    meter.set_phase1(phase1);
+    return *this;
+}
+auto BuilderMeter::set_phase2(std::optional<float> phase2) -> BuilderMeter &
+{
+    meter.set_phase2(phase2);
+    return *this;
+}
+auto BuilderMeter::set_phase3(std::optional<float> phase3) -> BuilderMeter &
+{
+    meter.set_phase3(phase3);
+    return *this;
+}
+auto BuilderMeter::build() -> std::unique_ptr<Meter>
+{
+    std::unique_ptr<Meter> built_meter = std::make_unique<Meter>(meter);
+    this->Reset();
+    return built_meter;
 }

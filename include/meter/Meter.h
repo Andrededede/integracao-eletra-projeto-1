@@ -1,6 +1,7 @@
 #pragma once
 
 #include <array>
+#include <iostream>
 #include <memory>
 #include <optional>
 #include <string>
@@ -34,7 +35,6 @@ auto line_enum_to_string(Line line) -> std::optional<std::string>;
 class Meter
 {
 protected:
-    static int ID;
     int id{0};
     std::string meter_name{};
     MeterType meter_type{};
@@ -45,13 +45,7 @@ protected:
     std::optional<float> phase3{std::nullopt};
 
 public:
-    Meter(std::string meter_name, MeterType meter_type, Client client, Line line, float phase1, std::optional<float> phase2 = std::nullopt,
-          std::optional<float> phase3 = std::nullopt);
-    Meter(int id, std::string meter_name, MeterType meter_type, Client client, Line line, float phase1, std::optional<float> phase2 = std::nullopt,
-          std::optional<float> phase3 = std::nullopt);
-    Meter(Meter &outro);
     virtual ~Meter() = default;
-    virtual auto Clone() -> std::unique_ptr<Meter> const = 0;
     auto get_meter_as_row() -> std::array<std::string, 5>;
     auto get_id() -> int
     {
@@ -85,6 +79,10 @@ public:
     {
         return phase3;
     }
+    auto set_id(int i) -> void
+    {
+        id = i;
+    }
     auto set_meter_name(std::string name) -> void
     {
         meter_name = name;
@@ -96,6 +94,10 @@ public:
     auto set_client(Client c) -> void
     {
         client = c;
+    }
+    auto set_line(Line l) -> void
+    {
+        line = l;
     }
     auto set_phase1(float p1) -> void
     {
@@ -113,4 +115,23 @@ public:
     {
         return (((this->line == other.line) && (this->meter_name == other.meter_name)));
     }
+};
+
+class BuilderMeter
+{
+private:
+    Meter meter;
+
+public:
+    BuilderMeter() = default;
+    auto Reset() -> void;
+    auto set_id(int id) -> BuilderMeter &;
+    auto set_meter_name(std::string name) -> BuilderMeter &;
+    auto set_meter_type(MeterType type) -> BuilderMeter &;
+    auto set_client(Client client) -> BuilderMeter &;
+    auto set_line(Line line) -> BuilderMeter &;
+    auto set_phase1(float phase1) -> BuilderMeter &;
+    auto set_phase2(std::optional<float> phase2) -> BuilderMeter &;
+    auto set_phase3(std::optional<float> phase3) -> BuilderMeter &;
+    auto build() -> std::unique_ptr<Meter>;
 };

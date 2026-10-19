@@ -6,6 +6,9 @@
 #include <string>
 #include <vector>
 
+static int next_meter_id = 1;
+auto get_next_meter_id() -> int;
+
 class Maker
 {
 private:
