@@ -47,6 +47,8 @@ protected:
 public:
     Meter(std::string meter_name, MeterType meter_type, Client client, Line line, float phase1, std::optional<float> phase2 = std::nullopt,
           std::optional<float> phase3 = std::nullopt);
+    Meter(int id, std::string meter_name, MeterType meter_type, Client client, Line line, float phase1, std::optional<float> phase2 = std::nullopt,
+          std::optional<float> phase3 = std::nullopt);
     Meter(Meter &outro);
     virtual ~Meter() = default;
     virtual auto Clone() -> std::unique_ptr<Meter> const = 0;

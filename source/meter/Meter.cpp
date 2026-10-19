@@ -17,6 +17,19 @@ Meter::Meter(std::string meter_name, MeterType meter_type, Client client, Line l
 {
 }
 
+Meter::Meter(int id, std::string meter_name, MeterType meter_type, Client client, Line line, float phase1, std::optional<float> phase2,
+             std::optional<float> phase3)
+    : id(id)
+    , meter_name(meter_name)
+    , meter_type(meter_type)
+    , client(client)
+    , line(line)
+    , phase1(phase1)
+    , phase2(phase2)
+    , phase3(phase3)
+{
+}
+
 Meter::Meter(Meter &outro)
     : id(++ID)
     , meter_name(outro.meter_name)

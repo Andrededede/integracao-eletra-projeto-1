@@ -5,6 +5,11 @@ Cronos::Cronos(std::string meter_name, MeterType meter_type, Client client, floa
 {
 }
 
+Cronos::Cronos(int id)
+    : Meter(id, "Default Cronos Single Phase", MeterType::SINGLE_PHASE, Client::EDP, Line::CRONOS, 220.0f)
+{
+}
+
 auto Cronos::Clone() -> std::unique_ptr<Meter> const
 {
     return std::make_unique<Cronos>(*this);

@@ -5,6 +5,11 @@ Ares::Ares(std::string meter_name, MeterType meter_type, Client client, float ph
 {
 }
 
+Ares::Ares(int id)
+    : Meter(id, "Default Ares Single Phase", MeterType::SINGLE_PHASE, Client::EDP, Line::ARES, 220.0f)
+{
+}
+
 auto Ares::Clone() -> std::unique_ptr<Meter> const
 {
     return std::make_unique<Ares>(*this);

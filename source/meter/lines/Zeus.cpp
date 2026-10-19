@@ -5,6 +5,11 @@ Zeus::Zeus(std::string meter_name, MeterType meter_type, Client client, float ph
 {
 }
 
+Zeus::Zeus(int id)
+    : Meter(id, "Default Zeus Single Phase", MeterType::SINGLE_PHASE, Client::EDP, Line::ZEUS, 220.0f)
+{
+}
+
 auto Zeus::Clone() -> std::unique_ptr<Meter> const
 {
     return std::make_unique<Zeus>(*this);
