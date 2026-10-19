@@ -197,7 +197,7 @@ auto Console::display_menu() -> void
             break;
         case 8:
             id = get_meter_id_input();
-            if (maker->remove_meter(id))
+            if (!maker->remove_meter(id))
             {
                 std::cout << "Medidor com ID " << id << " não encontrado." << std::endl;
             }
