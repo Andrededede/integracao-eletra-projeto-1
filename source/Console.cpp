@@ -216,7 +216,7 @@ auto Console::display_menu() -> void
             else
             {
                 phases = maker->get_meter_phases(id);
-                std::cout << "Leitura de Fase do Medidor " << *meter_type << ": ";
+                std::cout << "Leitura de Fase do Medidor do tipo " << *meter_type << ": ";
                 for (float phase : phases)
                 {
                     std::cout << phase << " ";

@@ -5,6 +5,11 @@ Apolo::Apolo(std::string meter_name, MeterType meter_type, Client client, float 
 {
 }
 
+Apolo::Apolo(int id)
+    : Meter(id, "Default Apolo Single Phase", MeterType::SINGLE_PHASE, Client::EDP, Line::APOLO, 220.0f)
+{
+}
+
 auto Apolo::Clone() -> std::unique_ptr<Meter> const
 {
     return std::make_unique<Apolo>(*this);
