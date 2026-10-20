@@ -1,6 +1,6 @@
-#include "../include/Maker.h"
-#include "../include/meter/MeterFactory.h"
+#include "Maker.h"
 #include "catch.hpp"
+#include "meter/MeterFactory.h"
 
 TEST_CASE("Maker names are returned correctly", "[maker]")
 {

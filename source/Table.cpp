@@ -1,4 +1,4 @@
-#include "../include/Table.h"
+#include "Table.h"
 #include <iomanip>
 #include <iostream>
 

@@ -1,5 +1,5 @@
-#include "../../include/Maker.h"
-#include "../../include/meter/MeterFactory.h"
+#include "Maker.h"
+#include "meter/MeterFactory.h"
 #include <iostream>
 
 auto MeterFactory::create_meter(const Line &line, const std::string &name, const MeterType &type, const Client &client, float phase1,

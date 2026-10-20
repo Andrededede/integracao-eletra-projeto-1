@@ -1,8 +1,8 @@
-#include "../include/Console.h"
-#include "../include/Maker.h"
-#include "../include/Table.h"
-#include "../include/meter/Meter.h"
-#include "../include/meter/MeterFactory.h"
+#include "Console.h"
+#include "Maker.h"
+#include "Table.h"
+#include "meter/Meter.h"
+#include "meter/MeterFactory.h"
 #include <iostream>
 #include <locale>
 

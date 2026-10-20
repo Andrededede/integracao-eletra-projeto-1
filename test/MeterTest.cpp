@@ -1,5 +1,5 @@
-#include "../include/meter/MeterFactory.h"
 #include "catch.hpp"
+#include "meter/MeterFactory.h"
 
 TEST_CASE("Meter properties", "[meter]")
 {

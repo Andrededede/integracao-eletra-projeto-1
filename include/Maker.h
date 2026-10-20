@@ -1,6 +1,6 @@
 #pragma once
-#include "Meter.h"
 #include "Table.h"
+#include "meter/Meter.h"
 #include <map>
 #include <memory>
 #include <string>

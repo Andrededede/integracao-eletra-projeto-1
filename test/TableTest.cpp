@@ -1,4 +1,4 @@
-#include "../include/Table.h"
+#include "Table.h"
 #include "catch.hpp"
 
 TEST_CASE("Table column widths calculation", "[table]")
