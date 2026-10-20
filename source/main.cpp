@@ -1,75 +1,64 @@
-#include "../include/Maker.h"
-#include "../include/Meter.h"
+#include "Console.h"
+#include "Maker.h"
+#include "Table.h"
+#include "meter/Meter.h"
+#include "meter/MeterFactory.h"
 #include <iostream>
 #include <locale>
 
 int main()
 {
     setlocale(LC_ALL, "pt_BR.UTF-8");
-    int op{};
 
-    Maker Eletra("Eletra");
+    std::unique_ptr<Maker> Eletra = std::make_unique<Maker>("Eletra");
+    std::unique_ptr<MeterFactory> meter_factory = std::make_unique<MeterFactory>();
 
-    Eletra.add_meter(Meter("6031", MeterType::SINGLE_PHASE, Client::EDP, Line::APOLO));
+    std::unique_ptr<Meter> apolo_6031 = meter_factory->create_meter(Line::APOLO, "6031", MeterType::SINGLE_PHASE, Client::EDP, 210.0f);
+    Eletra->add_meter(std::move(apolo_6031));
 
-    Eletra.add_meter(Meter("6001 A", MeterType::SINGLE_PHASE, Client::CEMIG, Line::CRONOS));
-    Eletra.add_meter(Meter("6021 A", MeterType::SINGLE_PHASE, Client::COPEL, Line::CRONOS));
-    Eletra.add_meter(Meter("6021L", MeterType::SINGLE_PHASE, Client::EDP, Line::CRONOS));
-    Eletra.add_meter(Meter("6003", MeterType::THREE_PHASE, Client::COELCE, Line::CRONOS));
-    Eletra.add_meter(Meter("7023", MeterType::THREE_PHASE, Client::CEMIG, Line::CRONOS));
-    Eletra.add_meter(Meter("7023L", MeterType::THREE_PHASE, Client::EDP, Line::CRONOS));
-    Eletra.add_meter(Meter("7023L 2,5", MeterType::THREE_PHASE, Client::COPEL, Line::CRONOS));
+    std::unique_ptr<Meter> cronos_6001A = meter_factory->create_meter(Line::CRONOS, "6001 A", MeterType::SINGLE_PHASE, Client::CEMIG, 180.0f);
+    Eletra->add_meter(std::move(cronos_6001A));
+    std::unique_ptr<Meter> cronos_6021A = meter_factory->create_meter(Line::CRONOS, "6021 A", MeterType::SINGLE_PHASE, Client::COPEL, 195.0f);
+    Eletra->add_meter(std::move(cronos_6021A));
+    std::unique_ptr<Meter> cronos_6021L = meter_factory->create_meter(Line::CRONOS, "6021L", MeterType::SINGLE_PHASE, Client::EDP, 222.0f);
+    Eletra->add_meter(std::move(cronos_6021L));
+    std::unique_ptr<Meter> cronos_6003 =
+        meter_factory->create_meter(Line::CRONOS, "6003", MeterType::THREE_PHASE, Client::COELCE, 213.0f, 327.0f, 225.0f);
+    Eletra->add_meter(std::move(cronos_6003));
+    std::unique_ptr<Meter> cronos_7023 =
+        meter_factory->create_meter(Line::CRONOS, "7023", MeterType::THREE_PHASE, Client::CEMIG, 220.0f, 380.0f, 220.0f);
+    Eletra->add_meter(std::move(cronos_7023));
+    std::unique_ptr<Meter> cronos_7023L =
+        meter_factory->create_meter(Line::CRONOS, "7023L", MeterType::THREE_PHASE, Client::EDP, 220.0f, 380.0f, 220.0f);
+    Eletra->add_meter(std::move(cronos_7023L));
+    std::unique_ptr<Meter> cronos_7023L_25 =
+        meter_factory->create_meter(Line::CRONOS, "7023L 2,5", MeterType::THREE_PHASE, Client::COPEL, 220.0f, 380.0f, 220.0f);
+    Eletra->add_meter(std::move(cronos_7023L_25));
 
-    Eletra.add_meter(Meter("7021", MeterType::SINGLE_PHASE, Client::CEMIG, Line::ARES));
-    Eletra.add_meter(Meter("7031", MeterType::SINGLE_PHASE, Client::COPEL, Line::ARES));
-    Eletra.add_meter(Meter("7023", MeterType::SINGLE_PHASE, Client::EDP, Line::ARES));
-    Eletra.add_meter(Meter("8023", MeterType::THREE_PHASE, Client::EDP, Line::ARES));
-    Eletra.add_meter(Meter("8023 15", MeterType::THREE_PHASE, Client::COPEL, Line::ARES));
-    Eletra.add_meter(Meter("8023 200", MeterType::THREE_PHASE, Client::COPEL, Line::ARES));
+    std::unique_ptr<Meter> ares_7021 = meter_factory->create_meter(Line::ARES, "7021", MeterType::SINGLE_PHASE, Client::COPEL, 220.0f);
+    Eletra->add_meter(std::move(ares_7021));
+    std::unique_ptr<Meter> ares_7031 = meter_factory->create_meter(Line::ARES, "7031", MeterType::SINGLE_PHASE, Client::COPEL, 220.0f);
+    Eletra->add_meter(std::move(ares_7031));
+    std::unique_ptr<Meter> ares_7023 = meter_factory->create_meter(Line::ARES, "7023", MeterType::SINGLE_PHASE, Client::EDP, 220.0f);
+    Eletra->add_meter(std::move(ares_7023));
+    std::unique_ptr<Meter> ares_8023 = meter_factory->create_meter(Line::ARES, "8023", MeterType::THREE_PHASE, Client::EDP, 220.0f, 380.0f, 220.0f);
+    Eletra->add_meter(std::move(ares_8023));
+    std::unique_ptr<Meter> ares_8023_15 =
+        meter_factory->create_meter(Line::ARES, "8023 15", MeterType::THREE_PHASE, Client::COPEL, 220.0f, 380.0f, 220.0f);
+    Eletra->add_meter(std::move(ares_8023_15));
+    std::unique_ptr<Meter> ares_8023_200 =
+        meter_factory->create_meter(Line::ARES, "8023 200", MeterType::THREE_PHASE, Client::COPEL, 220.0f, 380.0f, 220.0f);
+    Eletra->add_meter(std::move(ares_8023_200));
 
-    Eletra.add_meter(Meter("8021", MeterType::SINGLE_PHASE, Client::CEMIG, Line::ZEUS));
-    Eletra.add_meter(Meter("8031", MeterType::SINGLE_PHASE, Client::CEMIG, Line::ZEUS));
-    Eletra.add_meter(Meter("8023", MeterType::THREE_PHASE, Client::COELCE, Line::ZEUS));
+    std::unique_ptr<Meter> zeus_8021 = meter_factory->create_meter(Line::ZEUS, "8021", MeterType::SINGLE_PHASE, Client::CEMIG, 220.0f);
+    Eletra->add_meter(std::move(zeus_8021));
+    std::unique_ptr<Meter> zeus_8031 = meter_factory->create_meter(Line::ZEUS, "8031", MeterType::SINGLE_PHASE, Client::CEMIG, 220.0f);
+    Eletra->add_meter(std::move(zeus_8031));
+    std::unique_ptr<Meter> zeus_8023 =
+        meter_factory->create_meter(Line::ZEUS, "8023", MeterType::THREE_PHASE, Client::COELCE, 220.0f, 380.0f, 220.0f);
+    Eletra->add_meter(std::move(zeus_8023));
 
-    do
-    {
-        std::cout << "\nEscolha uma opção:" << std::endl
-                  << "1. Exibir todas as linhas disponíveis" << std::endl
-                  << "2. Exibir todos modelos de Medidores de Energia" << std::endl
-                  << "3. Exibir todos os modelos da Linha Ares" << std::endl
-                  << "4. Exibir todos os modelos da Linha Apollo" << std::endl
-                  << "5. Exibir todos os modelos da Linha Cronos" << std::endl
-                  << "6. Exibir todos os modelos da Linha Zeus" << std::endl
-                  << "7. Sair da Aplicação" << std::endl;
-        std::cin >> op;
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        std::cout << std::endl;
-        switch (op)
-        {
-        case 1:
-            Eletra.print_lines();
-            break;
-        case 2:
-            Eletra.print_all_meters();
-            break;
-        case 3:
-            Eletra.print_line_meters(Line::ARES);
-            break;
-        case 4:
-            Eletra.print_line_meters(Line::APOLO);
-            break;
-        case 5:
-            Eletra.print_line_meters(Line::CRONOS);
-            break;
-        case 6:
-            Eletra.print_line_meters(Line::ZEUS);
-            break;
-        case 7:
-            break;
-        default:
-            std::cout << "Opção inválida" << std::endl;
-            break;
-        }
-    } while (op != 7);
+    std::unique_ptr<Table> table = std::make_unique<Table>();
+    Console console(std::move(Eletra), std::move(meter_factory), std::move(table));
+    console.display_menu();
 }

@@ -6,6 +6,7 @@ add_executable(
     CatchMain.cpp
     MakerTest.cpp
     MeterTest.cpp
+    TableTest.cpp
 )
 
 target_link_libraries(${PROJECT_NAME}_test
